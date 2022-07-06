@@ -1,0 +1,137 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'androidx.navigation.safeargs' // navigation
+    id 'kotlin-kapt' // annotation processing
+    id 'kotlin-parcelize' // parsing data easily
+}
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        applicationId "com.example.newsfeed"
+        minSdk 26
+        targetSdk 32
+        versionCode 1
+        versionName "1.0"
+        buildConfigField("String","API_KEY",MY_KEY)
+        buildConfigField("String","BASE_URL",BASE_URL)
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            // enabling proguard
+            minifyEnabled true // enables proguard (true)
+            shrinkResources true // reduce APK size (true)
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    /**
+     * Typical Dependencies necessary for all major projects currently.
+     * 2.5.0-rco2 or 2.5.0-alpha02/6 future newest dependencies.
+     */
+
+    // Declaring versions for implementation
+    ext.roomVersion = "2.4.2"
+    ext.lifecycle_version = "2.5.0-rc02"
+    ext.arch_version = "2.1.0"
+    ext.dagger_version = "2.42"
+    def arch_version = "2.1.0"
+
+    /*
+    Dependency injection dependencies - Hilt.
+     */
+    implementation("com.google.dagger:hilt-android:2.42")
+    kapt("com.google.dagger:hilt-android-compiler:2.42")
+
+    /*
+    Navigation component with Android.
+     */
+    // Navigation - safe args
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.0'
+
+    /*
+    Network dependencies.
+     */
+    // Retrofit - API
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.2'
+    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.6'
+    // Glide - images loading
+    implementation 'com.github.bumptech.glide:glide:4.13.1'
+    kapt 'com.github.bumptech.glide:compiler:4.13.1'
+    // Coroutines - suspendable threads
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1"
+
+    /*
+    ViewModel and LiveData dependencies.
+     */
+    //noinspection GradleDependency
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    // ViewModel utilities for Compose
+    //noinspection GradleDependency
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
+    // LiveData
+    //noinspection GradleDependency
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    // Saved state module for ViewModel
+    //noinspection GradleDependency
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version")
+
+    /*
+    Room data persistence library.
+     */
+    // Room Database Dependencies
+    implementation("androidx.room:room-runtime:$roomVersion")
+    // To use Kotlin annotation processing tool (kapt)
+    kapt("androidx.room:room-compiler:2.5.0-alpha02")
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:$roomVersion")
+
+    /*
+    Core dependencies.
+     */
+    // Core Dependencies
+    implementation 'androidx.core:core-ktx:1.8.0'
+    // Application Compat Dependency
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    // Material components
+    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    /*
+    All dependencies for unit and instrumented testing.
+     */
+    // Unit testing
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    // Truth dependency to make testing easier
+    testImplementation "com.google.truth:truth:1.1.3"
+    testImplementation "androidx.arch.core:core-testing:$arch_version"
+    // UI testing
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    // Mock Web Server - used to fake api calls for testing purposes
+    implementation 'com.squareup.okhttp3:mockwebserver:5.0.0-alpha.2'
+}
+
+/*
+Allow references to generated code.
+ */
+kapt {
+    correctErrorTypes = true
+}

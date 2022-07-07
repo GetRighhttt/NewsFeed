@@ -8,5 +8,5 @@ Define abstract functions to communicate with API.
  */
 interface NewsRemoteDataSource {
 
-    suspend fun getTopHeadlines(): Response<NewsResponse>
+    suspend fun getTopHeadlines(country: String, page: Int): Response<NewsResponse>
 }

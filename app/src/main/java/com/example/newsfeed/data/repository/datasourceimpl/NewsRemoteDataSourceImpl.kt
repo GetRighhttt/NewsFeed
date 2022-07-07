@@ -13,11 +13,9 @@ Must add parameters from the @Query of the @GET response as constructor paramete
 Our APIKey was already defined so we don't need a parameter for that.
  */
 class NewsRemoteDataSourceImpl(
-    private val newsApiService: NewsApiService,
-    private val country: String,
-    private val page: Int
+    private val newsApiService: NewsApiService
 ): NewsRemoteDataSource {
-    override suspend fun getTopHeadlines(): Response<NewsResponse> {
+    override suspend fun getTopHeadlines(country: String, page: Int): Response<NewsResponse> {
         return newsApiService.getTopHeadlines(country, page)
     }
 }

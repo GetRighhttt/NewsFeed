@@ -19,8 +19,8 @@ We are going to use our Resource<T> class to keep track of our State of our API.
  */
 
 class NewsRepositoryImpl(private val newsRemoteDataSource: NewsRemoteDataSource): NewsRepository {
-    override suspend fun getNewsHeadlines(): Resource<NewsResponse> {
-        return responseToResource(newsRemoteDataSource.getTopHeadlines())
+    override suspend fun getNewsHeadlines(country: String, page: Int): Resource<NewsResponse> {
+        return responseToResource(newsRemoteDataSource.getTopHeadlines(country, page))
     }
 
     /*

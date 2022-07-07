@@ -7,7 +7,6 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsfeed.data.model.NewsResponse
 import com.example.newsfeed.data.util.Resource
@@ -21,7 +20,7 @@ view model layer. Have to extend AndroidViewModel in order to pass our applicati
 state of the internet purposes.
  */
 class NewsViewModel(
-    private val getNewsHeadlines: Application, private val app: GetNewsHeadlines
+    private val getNewsHeadlines: GetNewsHeadlines, private val app: Application
 ) : AndroidViewModel(app) {
     private val newsHeadlines: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
 

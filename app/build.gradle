@@ -4,6 +4,7 @@ plugins {
     id 'androidx.navigation.safeargs' // navigation
     id 'kotlin-kapt' // annotation processing
     id 'kotlin-parcelize' // parsing data easily
+    id("dagger.hilt.android.plugin") // parsing data easily
 }
 
 android {
@@ -34,6 +35,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
     }
 }
 

@@ -6,4 +6,5 @@
     <string name="saved_news_fragment">Saved News Fragment</string>
     <string name="saved_news">Saved News</string>
     <string name="news_headlines">News Headlines</string>
+    <string name="description">DESCRIPTION</string>
 </resources>

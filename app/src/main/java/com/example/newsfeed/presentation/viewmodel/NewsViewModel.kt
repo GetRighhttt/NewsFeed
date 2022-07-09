@@ -22,7 +22,7 @@ state of the internet purposes.
 class NewsViewModel(
     private val getNewsHeadlines: GetNewsHeadlines, private val app: Application
 ) : AndroidViewModel(app) {
-    private val newsHeadlines: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
+    val newsHeadlines: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
 
     /*
     Use coroutines to launch a job to get the news headlines in a background thread.

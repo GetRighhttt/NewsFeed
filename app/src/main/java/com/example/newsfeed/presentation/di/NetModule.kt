@@ -33,7 +33,6 @@ class NetModule {
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(BuildConfig.BASE_URL)
             .build()
-            .create()
     }
 
     /*

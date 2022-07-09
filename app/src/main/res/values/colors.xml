@@ -7,4 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="list_text">#FFFFFFFF</color>
+    <color name="list_background">#001d3d</color>
+    <color name="layout_background">#000000</color>
+    <color name="midnight">#22223b</color>
+    <color name="noonday">#4a4e69</color>
+    <color name="colorPrimary">#333135</color>
 </resources>

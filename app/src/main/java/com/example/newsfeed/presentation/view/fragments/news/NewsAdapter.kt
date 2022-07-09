@@ -18,6 +18,11 @@ Here we will give an example of the DiffUtil class.
 class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
     /*
+    Item click listener variable.
+     */
+    private var onItemClickListener: ((Article) -> Unit)? = null
+
+    /*
     DiffUtil reduces the number of updates for converting one list to another.
 
     We always pass in our list of data for the item call back.
@@ -65,6 +70,12 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
                 Glide.with(ivArticleImage.context)
                     .load(article.urlToImage)
                     .into(ivArticleImage)
+
+                root.setOnClickListener{
+                    onItemClickListener?.let {
+                        it(article)
+                    }
+                }
             }
         }
         /*
@@ -97,4 +108,11 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
     Return the size of the list.
      */
     override fun getItemCount(): Int = differ.currentList.size
+
+    /*
+    Setter method for the onItemClickListener.
+     */
+    fun setOnItemClickListener(listener: ((Article) -> Unit)?) {
+        onItemClickListener = listener
+    }
 }

@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/savedNewsFragment"
-        android:name="com.example.newsfeed.SavedNewsFragment"
+        android:name="com.example.newsfeed.presentation.view.fragments.saved.SavedNewsFragment"
         android:label="fragment_saved_news"
         tools:layout="@layout/fragment_saved_news" >
         <action
@@ -25,7 +25,11 @@
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.example.newsfeed.DetailsFragment"
+        android:name="com.example.newsfeed.presentation.view.fragments.details.DetailsFragment"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" />
+        tools:layout="@layout/fragment_details" >
+        <argument
+            android:name="selected_article"
+            app:argType="com.example.newsfeed.data.model.Article" />
+    </fragment>
 </navigation>

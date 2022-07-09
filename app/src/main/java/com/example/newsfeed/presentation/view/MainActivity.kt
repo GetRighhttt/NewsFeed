@@ -7,6 +7,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.newsfeed.R
 import com.example.newsfeed.databinding.ActivityMainBinding
+import com.example.newsfeed.presentation.view.fragments.news.NewsAdapter
 import com.example.newsfeed.presentation.viewmodel.NewsViewModel
 import com.example.newsfeed.presentation.viewmodel.factory.NewsViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,9 +31,13 @@ class MainActivity : AppCompatActivity() {
 
     /*
     We are going to use DI to provide an instance of ViewModel Factory.
+
+    Also use DI to provide an instance of Adapter.
      */
     @Inject
     lateinit var newsViewModelFactory: NewsViewModelFactory
+    @Inject
+    lateinit var newsAdapter: NewsAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

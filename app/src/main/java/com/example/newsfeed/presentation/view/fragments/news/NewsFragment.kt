@@ -39,7 +39,7 @@ class NewsFragment : Fragment() {
     }
 
     /*
-    Get the ViewModel instance we constructed inside the main activity.
+    Get the ViewModel & adapter instance we constructed inside the main activity.
 
     onViewCreated called immediately after all the views have been created.
     That's why we are using that to get the ViewModel instance. It's safer.
@@ -50,6 +50,7 @@ class NewsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentNewsBinding.bind(view)
         viewModel = (activity as MainActivity).viewModel
+        newsAdapter = (activity as MainActivity).newsAdapter
         initRecyclerView()
         displayNewsList()
     }
@@ -88,7 +89,7 @@ class NewsFragment : Fragment() {
     Method to initialize recycler view with apply method.
      */
     private fun initRecyclerView() {
-        newsAdapter = NewsAdapter()
+        // Can be injected as singleton - newsAdapter = NewsAdapter()
         binding.rvNews.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(activity)

@@ -5,9 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linear_list_item"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="140dp"
     android:orientation="vertical"
-    android:background="@drawable/item_background"
+    android:background="@drawable/gradient_background"
     android:layout_marginTop="10dp"
     >
     <TextView
@@ -51,7 +51,7 @@
                 android:textColor="@color/list_text"
                 android:textSize="15sp"
                 android:layout_weight="3"
-                />
+                tools:ignore="InefficientWeight,NestedWeights" />
             <TextView
                 android:id="@+id/tvPublishedAt"
                 android:layout_width="wrap_content"

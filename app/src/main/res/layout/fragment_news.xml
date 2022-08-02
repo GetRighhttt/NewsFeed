@@ -11,7 +11,8 @@
         android:id="@+id/searchView_news"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/midnight"/>
+        android:background="@color/midnight"
+        android:theme="@style/SearchViewStyle"/>
 
     <ProgressBar
         android:id="@+id/progressBar"

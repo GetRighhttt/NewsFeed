@@ -8,7 +8,7 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 /*
-Module to provdie the adapter with its dependencies.
+Module to provide the adapter with its dependencies.
  */
 @Module
 @InstallIn(SingletonComponent::class)

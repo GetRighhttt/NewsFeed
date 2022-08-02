@@ -25,6 +25,9 @@ class DetailsFragment : Fragment() {
 
     /*
     Method to receive the argument details from the news and display the web view.
+
+    This is how you receive arguments with the navigation component, and display them
+    in a web view. VERY useful.
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

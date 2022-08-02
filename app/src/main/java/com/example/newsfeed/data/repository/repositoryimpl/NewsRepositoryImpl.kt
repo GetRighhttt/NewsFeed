@@ -2,6 +2,7 @@ package com.example.newsfeed.data.repository.repositoryimpl
 
 import com.example.newsfeed.data.model.Article
 import com.example.newsfeed.data.model.NewsResponse
+import com.example.newsfeed.data.repository.datasource.NewsLocalDataSource
 import com.example.newsfeed.data.repository.datasource.NewsRemoteDataSource
 import com.example.newsfeed.data.util.Resource
 import com.example.newsfeed.domain.repository.NewsRepository
@@ -18,7 +19,10 @@ This class serves as the implementation from our repository in domain, to our da
 We are going to use our Resource<T> class to keep track of our State of our API.
  */
 
-class NewsRepositoryImpl(private val newsRemoteDataSource: NewsRemoteDataSource) : NewsRepository {
+class NewsRepositoryImpl(
+    private val newsRemoteDataSource: NewsRemoteDataSource,
+    private val newsLocalDataSource: NewsLocalDataSource
+) : NewsRepository {
     override suspend fun getNewsHeadlines(country: String, page: Int): Resource<NewsResponse> {
         return responseToResource(newsRemoteDataSource.getTopHeadlines(country, page))
     }
@@ -51,7 +55,7 @@ class NewsRepositoryImpl(private val newsRemoteDataSource: NewsRemoteDataSource)
     }
 
     override suspend fun saveNews(article: Article) {
-        TODO("Not yet implemented")
+        newsLocalDataSource.saveArticleToDB(article)
     }
 
     override suspend fun deleteNews(article: Article) {

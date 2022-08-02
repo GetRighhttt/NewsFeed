@@ -1,5 +1,6 @@
 package com.example.newsfeed.presentation.di
 
+import com.example.newsfeed.data.repository.datasource.NewsLocalDataSource
 import com.example.newsfeed.data.repository.datasource.NewsRemoteDataSource
 import com.example.newsfeed.data.repository.repositoryimpl.NewsRepositoryImpl
 import com.example.newsfeed.domain.repository.NewsRepository
@@ -23,8 +24,9 @@ class RepositoryModule {
     @Singleton
     @Provides
     fun provideRepository(
-        remoteDataSource: NewsRemoteDataSource
+        remoteDataSource: NewsRemoteDataSource,
+        newsLocalDataSource: NewsLocalDataSource
     ): NewsRepository {
-        return NewsRepositoryImpl(remoteDataSource)
+        return NewsRepositoryImpl(remoteDataSource, newsLocalDataSource)
     }
 }

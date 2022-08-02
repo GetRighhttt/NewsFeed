@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/stefa/AndroidStudioProjects/NewsFeed/app/src/main/res/drawable-v24/gradient_background.xml" value="0.1" />
+        <entry key="..\:/Users/stefa/AndroidStudioProjects/NewsFeed/app/src/main/res/drawable/ic_baseline_save_24.xml" value="0.1" />
         <entry key="..\:/Users/stefa/AndroidStudioProjects/NewsFeed/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/stefa/AndroidStudioProjects/NewsFeed/app/src/main/res/layout/fragment_details.xml" value="0.22864583333333333" />
         <entry key="..\:/Users/stefa/AndroidStudioProjects/NewsFeed/app/src/main/res/layout/fragment_news.xml" value="0.23177083333333334" />

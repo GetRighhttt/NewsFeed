@@ -59,7 +59,7 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
                 tvTitle.text = article.title
                 tvDescription.text = article.description
                 tvPublishedAt.text = article.publishedAt
-                tvSource.text = article.source.name
+                tvSource.text = article.source?.name
                 /*
                 Get the image with glide.
                  */

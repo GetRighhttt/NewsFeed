@@ -88,7 +88,7 @@ class NewsViewModel(
      * Same as above, checking network availability, and posting the result using
      * mutable live data.
      */
-    private val searchedNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
+    val searchedNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
 
     fun searchNews(
         country: String,

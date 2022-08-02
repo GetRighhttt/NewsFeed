@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
+import android.widget.SearchView
 import android.widget.Toast
+import androidx.compose.runtime.snapshots.Snapshot.Companion.observe
 import androidx.core.view.size
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -17,6 +19,9 @@ import com.example.newsfeed.data.util.Resource
 import com.example.newsfeed.databinding.FragmentNewsBinding
 import com.example.newsfeed.presentation.view.MainActivity
 import com.example.newsfeed.presentation.viewmodel.NewsViewModel
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /*
 We will show an example of paging here, DI, and DiffUtil usage from the adapter.
@@ -40,6 +45,7 @@ class NewsFragment : Fragment() {
      */
     private var country: String = "us"
     private var page: Int = 1
+    private var searchQuery: String = "q"
 
     /*
     Define a variable to check if data is loading.
@@ -90,8 +96,9 @@ class NewsFragment : Fragment() {
                 bundle
             )
         }
-        initRecyclerView() // method to nintialize recycler view
+        initRecyclerView() // method to initialize recycler view
         displayNewsList() // method to display the list depending on the state
+        setSearchView() // sets the searchview
     }
 
     /*
@@ -208,6 +215,102 @@ class NewsFragment : Fragment() {
             }
         }
 
+    }
+
+    /**
+     * Implement function to get search query!
+     *
+     * Must implement the two members inside the setSearchView method.
+     */
+    private fun setSearchView() {
+        binding.searchViewNews.apply {
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                /*
+                invoked when user types search and presses enter.
+
+                Listens for text to be entered.
+
+                need to write code to invoke the viewmodel's searchnews()
+                 */
+                override fun onQueryTextSubmit(p0: String?): Boolean {
+                    viewModel.searchNews("us", p0.toString(), page)
+                    displaySearchedNews()
+                    return false
+                }
+
+                /*
+                invoked for each exchange in the searchview every time we type or
+                remove text, things we write will be invoked.
+
+                called when the text changes in the query.
+
+                should give the user time to input text. we will use the MainScope().launch{}
+                since it is speficially designed for UI interactions with coroutines.
+                 */
+                override fun onQueryTextChange(p0: String?): Boolean {
+                    MainScope().launch {
+                        delay(2000)
+                        viewModel.searchNews("us", p0.toString(), page)
+                        displaySearchedNews()
+                    }
+                    return false
+                }
+
+            })
+
+            /*
+            code to reset list if user decides to click on close button.
+             */
+            binding.searchViewNews.apply {
+                setOnCloseListener(object : SearchView.OnCloseListener {
+                    override fun onClose(): Boolean {
+                        initRecyclerView()
+                        displayNewsList()
+                        return false
+                    }
+
+                })
+            }
+        }
+    }
+
+    /*
+    Method to display the searched news.
+     */
+    fun displaySearchedNews() {
+        viewModel.searchNews(country, searchQuery, page)
+        viewModel.searchedNews.observe(viewLifecycleOwner, { response ->
+            when (response) {
+                is Resource.Success -> {
+                    hideProgressBar()
+                    response.data?.let {
+                        newsAdapter.differ.submitList(it.articles.toList())
+                        /*
+                        Determininig if at the last page with the page size being 20
+                         */
+                        if (it.totalResults % 20 == 0) {
+                            val pages = it.totalResults / 20 // check if last page
+                        } else {
+                            pages = it.totalResults / 20 + 1
+                        }
+                        isAtTheLastPage = page == pages
+                    }
+                }
+                is Resource.Loading -> {
+                    displayProgressBar()
+                }
+                is Resource.Error -> {
+                    hideProgressBar()
+                    response.message?.let {
+                        Toast.makeText(
+                            activity,
+                            "There was an Error loading $it.",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+            }
+        })
     }
 
 }

@@ -17,10 +17,6 @@ Here we will give an example of the DiffUtil class.
 
 class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
-    /*
-    Item click listener variable.
-     */
-    private var onItemClickListener: ((Article) -> Unit)? = null
 
     /*
     DiffUtil reduces the number of updates for converting one list to another.
@@ -85,6 +81,18 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
     }
 
     /*
+Item click listener variable.
+ */
+    private var onItemClickListener: ((Article) -> Unit)? = null
+
+    /*
+  Setter method for the onItemClickListener.
+   */
+    fun setOnItemClickListener(listener: ((Article) -> Unit)?) {
+        onItemClickListener = listener
+    }
+
+    /*
     Inflate the list item using view binding.
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
@@ -109,10 +117,4 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
      */
     override fun getItemCount(): Int = differ.currentList.size
 
-    /*
-    Setter method for the onItemClickListener.
-     */
-    fun setOnItemClickListener(listener: ((Article) -> Unit)?) {
-        onItemClickListener = listener
-    }
 }

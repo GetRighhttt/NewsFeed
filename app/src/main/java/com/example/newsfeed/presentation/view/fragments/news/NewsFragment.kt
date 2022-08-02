@@ -71,6 +71,9 @@ class NewsFragment : Fragment() {
     That's why we are using that to get the ViewModel instance. It's safer.
 
     Then we use our method to initialize the recycler view.
+
+    This is how we are going to pass our webview details to display the details
+    of our news article in our Details Fragment.
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -79,7 +82,7 @@ class NewsFragment : Fragment() {
         newsAdapter = (activity as MainActivity).newsAdapter
         newsAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
-                putParcelable("selected_article", it)
+                putSerializable("selected_article", it)
             }
             findNavController().navigate(
                 R.id.action_newsFragment_to_detailsFragment,

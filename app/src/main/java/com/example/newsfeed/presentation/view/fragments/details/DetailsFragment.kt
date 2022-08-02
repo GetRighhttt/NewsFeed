@@ -24,15 +24,20 @@ class DetailsFragment : Fragment() {
     }
 
     /*
-    Method to receive the argument details from the news and display the web view.
+    Method to receive the argument details from the news fragment and display the web view.
 
     This is how you receive arguments with the navigation component, and display them
     in a web view. VERY useful.
+
+    This is also the best approach when wanting to display details on a recycler view.
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDetailsBinding.bind(view)
 
+        /*
+        Get detail fragment arguments using navArgs().
+         */
         val args: DetailsFragmentArgs by navArgs()
         val article = args.selectedArticle
         binding.webview.apply {

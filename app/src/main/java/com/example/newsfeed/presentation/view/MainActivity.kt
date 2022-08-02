@@ -54,7 +54,8 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavView.setupWithNavController(navController)
 
         /*
-        Write the code to get the ViewModel.
+        Code to construct a viewModel instance in the main activity and share it amongst
+        fragments. Best practice for a single activity, multiple fragment approach.
          */
         viewModel = ViewModelProvider(this, newsViewModelFactory)[NewsViewModel::class.java]
     }

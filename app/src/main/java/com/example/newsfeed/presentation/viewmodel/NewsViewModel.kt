@@ -28,6 +28,8 @@ class NewsViewModel(
     Use coroutines to launch a job to get the news headlines in a background thread.
 
     If loading or in an error state, display a message.
+
+    To get the response, we need an instance of getNewsHeadLines from the UseCase.
      */
     fun getNewsHeadLines(country: String, page: Int) = viewModelScope.launch(Dispatchers.IO) {
         newsHeadlines.postValue(Resource.Loading())

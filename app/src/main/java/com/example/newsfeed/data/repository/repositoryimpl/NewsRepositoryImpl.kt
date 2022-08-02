@@ -27,7 +27,7 @@ class NewsRepositoryImpl(private val newsRemoteDataSource: NewsRemoteDataSource)
     Method to determine the state of the NewsResponse,
     and determine if it is successful or error.
      */
-    private fun responseToResource(response: Response<NewsResponse>) :Resource<NewsResponse> {
+    private fun responseToResource(response: Response<NewsResponse>) : Resource<NewsResponse> {
         if(response.isSuccessful) {
             response.body()?.let { result->
                 return Resource.Success(result)

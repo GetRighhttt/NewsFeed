@@ -68,7 +68,8 @@ class NewsFragment : Fragment() {
     Get the ViewModel & adapter instance we constructed inside the main activity.
 
     onViewCreated called immediately after all the views have been created.
-    That's why we are using that to get the ViewModel instance. It's safer.
+    It's safer to avoid
+    unexpectd errors as a result of partially created views.
 
     Then we use our method to initialize the recycler view.
 
@@ -78,8 +79,8 @@ class NewsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentNewsBinding.bind(view)
-        viewModel = (activity as MainActivity).viewModel
-        newsAdapter = (activity as MainActivity).newsAdapter
+        viewModel = (activity as MainActivity).viewModel // get viewModel from Main
+        newsAdapter = (activity as MainActivity).newsAdapter // get adapter from Main
         newsAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
                 putSerializable("selected_article", it)
@@ -89,8 +90,8 @@ class NewsFragment : Fragment() {
                 bundle
             )
         }
-        initRecyclerView()
-        displayNewsList()
+        initRecyclerView() // method to nintialize recycler view
+        displayNewsList() // method to display the list depending on the state
     }
 
     /*
@@ -142,7 +143,7 @@ class NewsFragment : Fragment() {
     scrolling the recycler view.
      */
     private fun initRecyclerView() {
-        // Can be injected as singleton - newsAdapter = NewsAdapter()
+        // Injecting as singleton -> newsAdapter = NewsAdapter()
         binding.rvNews.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(activity)

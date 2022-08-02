@@ -11,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.newsfeed.data.model.NewsResponse
 import com.example.newsfeed.data.util.Resource
 import com.example.newsfeed.domain.usecase.GetNewsHeadlines
+import com.example.newsfeed.domain.usecase.GetSearchedNewsHeadlines
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -20,7 +21,8 @@ view model layer. Have to extend AndroidViewModel in order to pass our applicati
 state of the internet purposes.
  */
 class NewsViewModel(
-    private val getNewsHeadlines: GetNewsHeadlines, private val app: Application
+    private val getNewsHeadlines: GetNewsHeadlines, private val app: Application,
+    private val getSearchedNewsHeadlines: GetSearchedNewsHeadlines
 ) : AndroidViewModel(app) {
     val newsHeadlines: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
 
@@ -52,7 +54,7 @@ class NewsViewModel(
     Pretty generic android code. Can reuse method for other projects also.
      */
     private fun isNetworkAvailable(context: Context?): Boolean {
-        if(context == null) return false
+        if (context == null) return false
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -78,5 +80,34 @@ class NewsViewModel(
             }
         }
         return false
+    }
+
+    /**
+     * Get Search results from Use Case class.
+     *
+     * Same as above, checking network availability, and posting the result using
+     * mutable live data.
+     */
+    private val searchedNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
+
+    fun searchNews(
+        country: String,
+        searchQuery: String, page: Int
+    ) = viewModelScope.launch {
+        searchedNews.postValue(Resource.Loading())
+        try {
+            if (isNetworkAvailable(app)) {
+                val apiResult = getSearchedNewsHeadlines.execute(
+                    country,
+                    searchQuery,
+                    page
+                )
+                searchedNews.postValue(apiResult)
+            } else {
+                searchedNews.postValue(Resource.Error("Internet is not available."))
+            }
+        } catch (e: Exception) {
+            searchedNews.postValue(Resource.Error(e.message.toString()))
+        }
     }
 }

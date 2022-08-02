@@ -7,9 +7,9 @@ import com.example.newsfeed.domain.repository.NewsRepository
 /*
 Here for this use case, we will search for certain news articles.
  */
-class GetSearchedNews(private val newsRepository: NewsRepository) {
+class GetSearchedNewsHeadlines(private val newsRepository: NewsRepository) {
 
-    suspend fun execute(searchQuery: String): Resource<NewsResponse> {
-        return newsRepository.getSearchedNews(searchQuery)
+    suspend fun execute(country: String, searchQuery: String, page: Int): Resource<NewsResponse> {
+        return newsRepository.getSearchedNewsHeadlines(country, searchQuery, page)
     }
 }

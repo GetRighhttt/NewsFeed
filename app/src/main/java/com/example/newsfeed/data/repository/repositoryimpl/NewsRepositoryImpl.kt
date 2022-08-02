@@ -18,26 +18,36 @@ This class serves as the implementation from our repository in domain, to our da
 We are going to use our Resource<T> class to keep track of our State of our API.
  */
 
-class NewsRepositoryImpl(private val newsRemoteDataSource: NewsRemoteDataSource): NewsRepository {
+class NewsRepositoryImpl(private val newsRemoteDataSource: NewsRemoteDataSource) : NewsRepository {
     override suspend fun getNewsHeadlines(country: String, page: Int): Resource<NewsResponse> {
         return responseToResource(newsRemoteDataSource.getTopHeadlines(country, page))
+    }
+
+    override suspend fun getSearchedNewsHeadlines(
+        country: String,
+        searchQuery: String,
+        page: Int
+    ): Resource<NewsResponse> {
+        return responseToResource(
+            newsRemoteDataSource.getSearchedNewsHeadlines(
+                country,
+                searchQuery,
+                page
+            )
+        )
     }
 
     /*
     Method to determine the state of the NewsResponse,
     and determine if it is successful or error.
      */
-    private fun responseToResource(response: Response<NewsResponse>) : Resource<NewsResponse> {
-        if(response.isSuccessful) {
-            response.body()?.let { result->
+    private fun responseToResource(response: Response<NewsResponse>): Resource<NewsResponse> {
+        if (response.isSuccessful) {
+            response.body()?.let { result ->
                 return Resource.Success(result)
             }
         }
         return Resource.Error(response.message())
-    }
-
-    override suspend fun getSearchedNews(searchQuery: String): Resource<NewsResponse> {
-        TODO("Not yet implemented")
     }
 
     override suspend fun saveNews(article: Article) {

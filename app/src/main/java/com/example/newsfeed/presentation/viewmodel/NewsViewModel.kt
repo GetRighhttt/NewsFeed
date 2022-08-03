@@ -13,16 +13,19 @@ import com.example.newsfeed.data.model.Article
 import com.example.newsfeed.data.model.NewsResponse
 import com.example.newsfeed.data.util.Resource
 import com.example.newsfeed.domain.usecase.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /*
 View Model class where we demonstrate how to properly incorporate state components into our
 view model layer. Have to extend AndroidViewModel in order to pass our application context for
 state of the internet purposes.
  */
-class NewsViewModel(
+@HiltViewModel
+class NewsViewModel @Inject constructor(
     private val getNewsHeadlines: GetNewsHeadlines, private val app: Application,
     private val getSearchedNewsHeadlines: GetSearchedNewsHeadlines,
     private val saveNewsUseCase: SaveTheNewsArticle,

@@ -41,7 +41,7 @@ interface NewsRepository {
     /*
     Delete method for delete use case for our local data source.
      */
-    suspend fun deleteNews(article: Article)
+    suspend fun deleteSavedNewsArticles(article: Article)
 
     /*
     Get the list of saved news articles data from the database.

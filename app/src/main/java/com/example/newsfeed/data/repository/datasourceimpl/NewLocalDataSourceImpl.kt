@@ -13,4 +13,10 @@ class NewLocalDataSourceImpl(private val articleDao: DAO): NewsLocalDataSource {
     override fun getSavedData(): Flow<List<Article>> {
         return articleDao.getAllArticles()
     }
+
+    override suspend fun deleteSavedNewsArticles(article: Article) {
+        return articleDao.deleteSavedNewsArticles(article)
+    }
+
+
 }

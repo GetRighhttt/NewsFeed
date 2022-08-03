@@ -1,5 +1,6 @@
 package com.example.newsfeed.presentation.view.fragments.saved
 
+import android.content.ClipData
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,12 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.newsfeed.R
 import com.example.newsfeed.databinding.FragmentSavedNewsBinding
 import com.example.newsfeed.presentation.view.MainActivity
 import com.example.newsfeed.presentation.view.fragments.news.NewsAdapter
 import com.example.newsfeed.presentation.viewmodel.NewsViewModel
+import com.google.android.material.snackbar.Snackbar
 
 
 class SavedNewsFragment : Fragment() {
@@ -47,6 +51,7 @@ class SavedNewsFragment : Fragment() {
         }
         initRecyclerView() // method to initialize recycler view
         observeLiveData() // method to observe Live Data from viewmodel
+        createItemCallBack() // method for swipe mechanics to delete article
     }
 
     /*
@@ -67,5 +72,57 @@ class SavedNewsFragment : Fragment() {
         viewModel.getSavedNews().observe(viewLifecycleOwner, Observer {
             savedAdapter.differ.submitList(it)
         })
+    }
+
+    private fun createItemCallBack() {
+        /*
+        We want to allow the user to delete the article item by swiping. To do that, we must:
+
+        Implement an item touch helper callback method with a simple call back.
+
+        This below is how we allow for swipe interactions.
+         */
+        val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.UP or ItemTouchHelper.DOWN,
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return true
+            }
+
+            /*
+            This method below is how we determine actions when the user has swiped on an
+            item.
+
+            We create a swipe mechanic to delete the article.
+
+            We also create an Undo action to save the article if the user wants to undo the
+            deletion.
+             */
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                val article = savedAdapter.differ.currentList[position]
+                viewModel.deleteSavedNewsArticle(article)
+                view?.let {
+                    Snackbar.make(it, "Article Deleted", Snackbar.LENGTH_LONG)
+                        .apply {
+                            setAction("Undo") {
+                                viewModel.saveArticle(article)
+                            }
+                        }
+                        .show()
+                }
+            }
+
+        }
+
+        // attach ItemTouchHelper to the recycler view.
+        ItemTouchHelper(itemTouchHelperCallback).apply {
+            attachToRecyclerView(binding.rvSavedNews)
+        }
     }
 }

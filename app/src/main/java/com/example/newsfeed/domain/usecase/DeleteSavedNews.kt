@@ -9,6 +9,6 @@ This use case serves the purpose of deleting saved news articles.
 class DeleteSavedNews(private val newsRepository: NewsRepository) {
 
     suspend fun execute(article: Article) {
-        return newsRepository.deleteNews(article)
+        return newsRepository.deleteSavedNewsArticles(article)
     }
 }

@@ -1,9 +1,6 @@
 package com.example.newsfeed.data.db
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.newsfeed.data.model.Article
 import kotlinx.coroutines.flow.Flow
 
@@ -21,4 +18,7 @@ interface DAO {
 
     @Query("SELECT * FROM articles")
     fun getAllArticles(): Flow<List<Article>>
+
+    @Delete
+    suspend fun deleteSavedNewsArticles(article: Article)
 }

@@ -1,10 +1,7 @@
 package com.example.newsfeed.presentation.di
 
 import android.app.Application
-import com.example.newsfeed.domain.usecase.GetNewsHeadlines
-import com.example.newsfeed.domain.usecase.GetSavedNews
-import com.example.newsfeed.domain.usecase.GetSearchedNewsHeadlines
-import com.example.newsfeed.domain.usecase.SaveTheNewsArticle
+import com.example.newsfeed.domain.usecase.*
 import com.example.newsfeed.presentation.viewmodel.factory.NewsViewModelFactory
 import dagger.Module
 import dagger.Provides
@@ -28,14 +25,16 @@ class FactoryModule {
         getNewsHeadlines: GetNewsHeadlines,
         getSearchedNewsHeadlines: GetSearchedNewsHeadlines,
         saveNewsUseCase: SaveTheNewsArticle,
-        getSavedNews: GetSavedNews
+        getSavedNews: GetSavedNews,
+        deleteSavedNewsArticle: DeleteSavedNews
     ): NewsViewModelFactory {
         return NewsViewModelFactory(
             getNewsHeadlines,
             app,
             getSearchedNewsHeadlines,
             saveNewsUseCase,
-            getSavedNews
+            getSavedNews,
+            deleteSavedNewsArticle
         )
     }
 }

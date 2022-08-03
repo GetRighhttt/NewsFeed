@@ -53,5 +53,5 @@ interface NewsRepository {
 
     Because it returns a stream, the data does not have to be suspended.
      */
-    fun getSavedNews(): Flow<List<Article>>
+    fun getSavedData(): Flow<List<Article>>
 }

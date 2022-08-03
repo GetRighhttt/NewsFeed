@@ -10,6 +10,6 @@ Use case to get the saved news articles, and we do not use suspend because it re
 class GetSavedNews(private val newsRepository: NewsRepository) {
 
     fun execute(): Flow<List<Article>> {
-        return newsRepository.getSavedNews()
+        return newsRepository.getSavedData()
     }
 }

@@ -7,9 +7,11 @@
     tools:context=".presentation.view.fragments.saved.SavedNewsFragment"
     android:background="@drawable/gradient_background">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_saved_news"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/saved_news_fragment" />
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        tools:listitem="@layout/news_list_item"/>
 
 </FrameLayout>

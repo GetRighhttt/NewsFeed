@@ -62,7 +62,7 @@ class NewsRepositoryImpl(
         TODO("Not yet implemented")
     }
 
-    override fun getSavedNews(): Flow<List<Article>> {
-        TODO("Not yet implemented")
+    override fun getSavedData(): Flow<List<Article>> {
+        return newsLocalDataSource.getSavedData()
     }
 }

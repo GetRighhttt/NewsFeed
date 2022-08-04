@@ -118,10 +118,10 @@ class NewsFragment : Fragment() {
                         /*
                         Determininig if at the last page with the page size being 20
                          */
-                        if (it.totalResults % 20 == 0) {
+                        if (it.totalResults % 40 == 0) {
                             val pages = it.totalResults / 20 // check if last page
                         } else {
-                            pages = it.totalResults / 20 + 1
+                            pages = it.totalResults / 40 + 1
                         }
                         isAtTheLastPage = page == pages
                     }

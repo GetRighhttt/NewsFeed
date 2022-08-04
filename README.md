@@ -18,7 +18,7 @@ the room database.</p>
 - Coroutines
 - RoomDatabase
 - Remote and Local DataSources
-- Hilt
+- Dagger-Hilt
 - MVVM
 - View Model
 - Live Data

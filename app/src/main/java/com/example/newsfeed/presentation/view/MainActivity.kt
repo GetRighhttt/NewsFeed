@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     We are going to use DI to provide an instance of ViewModel Factory.
 
     Also use DI to provide an instance of Adapter.
-     */
+    */
     @Inject
     lateinit var newsViewModelFactory: NewsViewModelFactory
     @Inject

@@ -2,7 +2,7 @@
 
 ### Description :
 
-<p>This app is another professionally architected app.<br>
+<p>This app is a clean code architected app.<br>
 It provides the top News headlines, and implements a search<br>
 functionality. It also implements a webview to display the <br>
 story more in depth. You can save your top stories as well to<br>

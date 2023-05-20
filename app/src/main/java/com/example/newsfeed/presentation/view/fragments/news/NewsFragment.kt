@@ -221,41 +221,27 @@ class NewsFragment : Fragment() {
     private fun setSearchView() {
         binding.searchViewNews.apply {
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                /*
-                invoked when user types search and presses enter.
-
-                Listens for text to be entered.
-
-                need to write code to invoke the view-model's search news()
-                 */
                 override fun onQueryTextSubmit(p0: String?): Boolean {
-                    viewModel.searchNews("us", p0.toString(), page)
-                    displaySearchedNews()
-                    return false
+                    binding.apply {
+                        rvNews.smoothScrollToPosition(0)
+                        val query = viewModel.searchNews(country, p0.toString(), page).toString()
+                        displaySearchedNews(query)
+                        clearFocus()
+                        return true
+                    }
                 }
 
-                /*
-                invoked for each exchange in the search view every time we type or
-                remove text, things we write will be invoked.
-
-                called when the text changes in the query.
-
-                should give the user time to input text. we will use the MainScope().launch{}
-                since it is specially designed for UI interactions with coroutines.
-                 */
                 override fun onQueryTextChange(p0: String?): Boolean {
                     return true
                 }
             })
-            clearFocus()
         }
     }
 
     /*
     Method to display the searched news.
      */
-    fun displaySearchedNews() {
-        viewModel.searchNews(country, searchQuery, page)
+    fun displaySearchedNews(query: String) {
         viewModel.searchedNews.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {

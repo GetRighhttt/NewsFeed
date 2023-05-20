@@ -1,23 +1,23 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'androidx.navigation.safeargs' // navigation
     id 'kotlin-kapt' // annotation processing
     id 'kotlin-parcelize' // parsing data easily
+    id 'androidx.navigation.safeargs' // navigation
     id("dagger.hilt.android.plugin") // parsing data easily
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.newsfeed"
         minSdk 26
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
-        buildConfigField("String","API_KEY",MY_KEY)
-        buildConfigField("String","BASE_URL",BASE_URL)
+//        buildConfigField("String","API_KEY",MY_KEY)
+//        buildConfigField("String","BASE_URL",BASE_URL)
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -30,15 +30,16 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
     buildFeatures {
         viewBinding true
     }
+    namespace 'com.example.newsfeed'
 }
 
 dependencies {
@@ -53,6 +54,7 @@ dependencies {
     ext.arch_version = "2.1.0"
     ext.dagger_version = "2.42"
     def arch_version = "2.1.0"
+    def nav_version = "2.5.3"
 
     /*
     Dependency injection dependencies - Hilt.
@@ -60,12 +62,9 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.42")
     kapt("com.google.dagger:hilt-android-compiler:2.42")
 
-    /*
-    Navigation component with Android.
-     */
-    // Navigation - safe args
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.0'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.0'
+    // Kotlin
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 
     /*
     Network dependencies.

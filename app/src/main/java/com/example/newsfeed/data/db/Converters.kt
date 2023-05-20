@@ -30,15 +30,3 @@ class Converters {
         return Source(name, name)
     }
 }
-
-/*
-We just want the name from here:
-
-@Parcelize
-data class Source(
-    @SerializedName("id")
-    val id: String,
-    @SerializedName("name")
-    val name: String
-) : Parcelable
- */

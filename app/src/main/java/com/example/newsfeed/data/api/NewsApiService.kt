@@ -1,8 +1,6 @@
 package com.example.newsfeed.data.api
 
-import com.example.newsfeed.BuildConfig
 import com.example.newsfeed.data.model.NewsResponse
-import com.google.gson.internal.GsonBuildConfig
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -23,7 +21,7 @@ interface NewsApiService {
         @Query("page")
         page: Int,
         @Query("apiKey")
-        apiKey: String = BuildConfig.API_KEY
+        apiKey: String = "fcf017ca90a244818b520ff16c6a8a29"
     ): Response<NewsResponse>
 
     /**
@@ -38,6 +36,6 @@ interface NewsApiService {
         @Query("page")
         page: Int,
         @Query("apiKey")
-        apiKey: String = BuildConfig.API_KEY
+        apiKey: String = "fcf017ca90a244818b520ff16c6a8a29"
     ): Response<NewsResponse>
 }

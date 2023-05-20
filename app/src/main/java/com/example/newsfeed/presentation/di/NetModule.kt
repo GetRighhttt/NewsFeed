@@ -1,6 +1,5 @@
 package com.example.newsfeed.presentation.di
 
-import com.example.newsfeed.BuildConfig
 import com.example.newsfeed.data.api.NewsApiService
 import dagger.Module
 import dagger.Provides
@@ -31,7 +30,7 @@ class NetModule {
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(BuildConfig.BASE_URL)
+            .baseUrl("https://newsapi.org/")
             .build()
     }
 

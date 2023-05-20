@@ -75,11 +75,11 @@ class NewsFragment : Fragment() {
 
     onViewCreated called immediately after all the views have been created.
     It's safer to avoid
-    unexpectd errors as a result of partially created views.
+    unexpected errors as a result of partially created views.
 
     Then we use our method to initialize the recycler view.
 
-    This is how we are going to pass our webview details to display the details
+    This is how we are going to pass our web view details to display the details
     of our news article in our Details Fragment.
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -98,7 +98,7 @@ class NewsFragment : Fragment() {
         }
         initRecyclerView() // method to initialize recycler view
         displayNewsList() // method to display the list depending on the state
-        setSearchView() // sets the searchview
+        setSearchView() // sets the search view
     }
 
     /*
@@ -241,35 +241,19 @@ class NewsFragment : Fragment() {
                 }
 
                 /*
-                invoked for each exchange in the searchview every time we type or
+                invoked for each exchange in the search view every time we type or
                 remove text, things we write will be invoked.
 
                 called when the text changes in the query.
 
                 should give the user time to input text. we will use the MainScope().launch{}
-                since it is speficially designed for UI interactions with coroutines.
+                since it is specially designed for UI interactions with coroutines.
                  */
                 override fun onQueryTextChange(p0: String?): Boolean {
-                    MainScope().launch {
-                        delay(2000)
-                        viewModel.searchNews("us", p0.toString(), page)
-                        displaySearchedNews()
-                    }
                     return true
                 }
-
             })
-
-            /*
-            code to reset list if user decides to click on close button.
-             */
-            binding.searchViewNews.apply {
-                setOnCloseListener {
-                    initRecyclerView()
-                    displayNewsList()
-                    false
-                }
-            }
+            clearFocus()
         }
     }
 

@@ -109,7 +109,7 @@ class NewsFragment : Fragment() {
      */
     private fun displayNewsList() {
         viewModel.getNewsHeadLines(country, page)
-        viewModel.newsHeadlines.observe(viewLifecycleOwner, { response ->
+        viewModel.newsHeadlines.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
                     hideProgressBar()
@@ -126,9 +126,11 @@ class NewsFragment : Fragment() {
                         isAtTheLastPage = page == pages
                     }
                 }
+
                 is Resource.Loading -> {
                     displayProgressBar()
                 }
+
                 is Resource.Error -> {
                     hideProgressBar()
                     response.message?.let {
@@ -140,7 +142,7 @@ class NewsFragment : Fragment() {
                     }
                 }
             }
-        })
+        }
     }
 
     /*
@@ -253,7 +255,7 @@ class NewsFragment : Fragment() {
                         viewModel.searchNews("us", p0.toString(), page)
                         displaySearchedNews()
                     }
-                    return false
+                    return true
                 }
 
             })
@@ -262,14 +264,11 @@ class NewsFragment : Fragment() {
             code to reset list if user decides to click on close button.
              */
             binding.searchViewNews.apply {
-                setOnCloseListener(object : SearchView.OnCloseListener {
-                    override fun onClose(): Boolean {
-                        initRecyclerView()
-                        displayNewsList()
-                        return false
-                    }
-
-                })
+                setOnCloseListener {
+                    initRecyclerView()
+                    displayNewsList()
+                    false
+                }
             }
         }
     }
@@ -279,7 +278,7 @@ class NewsFragment : Fragment() {
      */
     fun displaySearchedNews() {
         viewModel.searchNews(country, searchQuery, page)
-        viewModel.searchedNews.observe(viewLifecycleOwner, { response ->
+        viewModel.searchedNews.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
                     hideProgressBar()
@@ -296,9 +295,11 @@ class NewsFragment : Fragment() {
                         isAtTheLastPage = page == pages
                     }
                 }
+
                 is Resource.Loading -> {
                     displayProgressBar()
                 }
+
                 is Resource.Error -> {
                     hideProgressBar()
                     response.message?.let {
@@ -310,7 +311,7 @@ class NewsFragment : Fragment() {
                     }
                 }
             }
-        })
+        }
     }
 
 }

@@ -9,7 +9,7 @@ import com.example.newsfeed.data.model.Article
 @Parcelize
 data class NewsResponse(
     @SerializedName("articles")
-    val articles: List<Article>,
+    val articles: List<Article>?,
     @SerializedName("status")
     val status: String,
     @SerializedName("totalResults")

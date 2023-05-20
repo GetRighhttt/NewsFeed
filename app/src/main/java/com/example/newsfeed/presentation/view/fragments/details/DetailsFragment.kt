@@ -46,9 +46,7 @@ class DetailsFragment : Fragment() {
         val article = args.selectedArticle
         binding.webview.apply {
             webViewClient = WebViewClient()
-            if (article.url != null) {
-                loadUrl(article.url)
-            }
+            article.url?.let { loadUrl(it) }
         }
 
         /*

@@ -1,16 +1,13 @@
 package com.example.newsfeed.presentation.view.fragments.news
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.SearchView
 import android.widget.Toast
-import androidx.compose.runtime.snapshots.Snapshot.Companion.observe
-import androidx.core.view.size
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,9 +16,6 @@ import com.example.newsfeed.data.util.Resource
 import com.example.newsfeed.databinding.FragmentNewsBinding
 import com.example.newsfeed.presentation.view.MainActivity
 import com.example.newsfeed.presentation.viewmodel.NewsViewModel
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 /*
 We will show an example of paging here, DI, and DiffUtil usage from the adapter.
@@ -114,9 +108,9 @@ class NewsFragment : Fragment() {
                 is Resource.Success -> {
                     hideProgressBar()
                     response.data?.let {
-                        newsAdapter.differ.submitList(it.articles.toList())
+                        newsAdapter.differ.submitList(it.articles?.toList() ?: emptyList())
                         /*
-                        Determininig if at the last page with the page size being 20
+                        Determining if at the last page with the page size being 20
                          */
                         if (it.totalResults % 50 == 0) {
                             val pages = it.totalResults / 20 // check if last page
@@ -195,7 +189,7 @@ class NewsFragment : Fragment() {
         }
 
         /*
-        Method to defnie what happens when we are scrolling, and to determine when we should
+        Method to define what happens when we are scrolling, and to determine when we should
         be paging.
          */
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -232,7 +226,7 @@ class NewsFragment : Fragment() {
 
                 Listens for text to be entered.
 
-                need to write code to invoke the viewmodel's searchnews()
+                need to write code to invoke the view-model's search news()
                  */
                 override fun onQueryTextSubmit(p0: String?): Boolean {
                     viewModel.searchNews("us", p0.toString(), page)
@@ -267,9 +261,9 @@ class NewsFragment : Fragment() {
                 is Resource.Success -> {
                     hideProgressBar()
                     response.data?.let {
-                        newsAdapter.differ.submitList(it.articles.toList())
+                        newsAdapter.differ.submitList(it.articles?.toList() ?: emptyList())
                         /*
-                        Determininig if at the last page with the page size being 20
+                        Determining if at the last page with the page size being 20
                          */
                         if (it.totalResults % 20 == 0) {
                             val pages = it.totalResults / 20 // check if last page

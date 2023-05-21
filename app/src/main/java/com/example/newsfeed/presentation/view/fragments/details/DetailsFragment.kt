@@ -56,12 +56,9 @@ class DetailsFragment : Fragment() {
         }
 
         /*
-        Get main activity viewmodel instance.
-
         Use that view model instance to get the savearticle() method and save the article
         instance from the bundle arguments above.
 
-        Then display the save article in a snackbar.
          */
         viewModel = (activity as MainActivity).viewModel
         binding.apply {

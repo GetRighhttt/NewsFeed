@@ -30,10 +30,3 @@ the room database.</p>
 - Bottom Navigation
 - WebView
 <hr>
-
-![2022-08-03 (1)](https://user-images.githubusercontent.com/105057858/182641483-76a99d44-a1e4-4746-9561-fcbda752391c.png)
-
-![2022-08-03 (3)](https://user-images.githubusercontent.com/105057858/182641504-c9e7194f-e0e6-4ed9-ac52-3e51ddd58c69.png)
-
-![2022-08-03 (2)](https://user-images.githubusercontent.com/105057858/182641541-f6de669d-6ec9-4065-bf44-e69c38de8a0b.png)
-

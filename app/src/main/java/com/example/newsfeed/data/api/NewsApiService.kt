@@ -14,6 +14,7 @@ interface NewsApiService {
     Method definition to get the top headlines from our NewsResponse Model
 
     Each query serves as a new end point.
+    'x-api-key': 'YOUR_API_KEY'
      */
     @Headers("x-api-key: bHG5x7DTwN9x-_XR0e1i6taIPMF1kqYtNVcmFTD1ZBI")
     @GET("v2/latest_headlines")

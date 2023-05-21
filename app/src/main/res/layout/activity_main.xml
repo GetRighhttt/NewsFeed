@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.view.MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".presentation.view.MainActivity">
 
-<!--    Navigation Host-->
+    <!--    Navigation Host-->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -20,12 +20,10 @@
     <!--    We are also going to implement a bottom navigation bar.-->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav_view"
-        app:menu="@menu/menu"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/list_background"
-        app:itemTextColor="@color/white"
-        app:itemIconTint="@color/white"/>
+        android:background="@drawable/gradient_background"
+        app:menu="@menu/menu" />
 
 </LinearLayout>

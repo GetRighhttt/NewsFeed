@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
     android:orientation="vertical"
     tools:context=".presentation.view.fragments.details.DetailsFragment">
 
@@ -12,13 +11,13 @@
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
         android:clickable="true"
+        android:contentDescription="@string/save_article"
         android:src="@drawable/ic_baseline_save_24"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="10dp"
-        android:contentDescription="@string/save_article" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <WebView
         android:id="@+id/webview"

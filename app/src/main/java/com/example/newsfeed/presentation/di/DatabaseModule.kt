@@ -1,12 +1,9 @@
 package com.example.newsfeed.presentation.di
 
 import android.app.Application
-import androidx.room.Dao
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.example.newsfeed.data.db.ArticleRoomDatabase
 import com.example.newsfeed.data.db.DAO
-import com.example.newsfeed.data.model.Article
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

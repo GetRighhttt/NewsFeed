@@ -15,14 +15,13 @@ Our APIKey was already defined so we don't need a parameter for that.
 class NewsRemoteDataSourceImpl(
     private val newsApiService: NewsApiService
 ): NewsRemoteDataSource {
-    override suspend fun getTopHeadlines(topic: String, page: Int): Response<NewsResponse> {
-        return newsApiService.getTopHeadlines(topic, page)
+    override suspend fun getTopHeadlines(topic: String): Response<NewsResponse> {
+        return newsApiService.getTopHeadlines(q = topic)
     }
 
     override suspend fun getSearchedNewsHeadlines(
-        q: String,
-        page: Int
+        q: String
     ): Response<NewsResponse> {
-        return newsApiService.getSearchedTopHeadlines(q, page)
+        return newsApiService.getSearchedTopHeadlines(q)
     }
 }

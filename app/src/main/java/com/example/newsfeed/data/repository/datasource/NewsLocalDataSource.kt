@@ -1,12 +1,12 @@
 package com.example.newsfeed.data.repository.datasource
 
-import com.example.newsfeed.data.model.Article
+import com.example.newsfeed.data.model.Results
 import kotlinx.coroutines.flow.Flow
 
 interface NewsLocalDataSource {
-    suspend fun saveArticleToDB(article: Article)
+    suspend fun saveArticleToDB(results: Results)
 
-    fun getSavedData(): Flow<List<Article>>
+    fun getSavedData(): Flow<List<Results>>
 
-    suspend fun deleteSavedNewsArticles(article: Article)
+    suspend fun deleteSavedNewsArticles(results: Results)
 }

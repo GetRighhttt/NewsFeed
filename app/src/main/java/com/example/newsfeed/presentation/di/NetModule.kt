@@ -48,7 +48,7 @@ class NetModule {
 
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://api.newscatcherapi.com/")
+            .baseUrl("https://newsdata.io/")
             .client(provideHttpInterceptor())
             .build()
     }

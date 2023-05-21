@@ -1,6 +1,6 @@
 package com.example.newsfeed.domain.repository
 
-import com.example.newsfeed.data.model.Article
+import com.example.newsfeed.data.model.Results
 import com.example.newsfeed.data.model.NewsResponse
 import com.example.newsfeed.data.util.Resource
 import kotlinx.coroutines.flow.Flow
@@ -20,14 +20,13 @@ interface NewsRepository {
     /*
     Get method for get use case.
      */
-    suspend fun getNewsHeadlines(topic: String, page: Int): Resource<NewsResponse>
+    suspend fun getNewsHeadlines(q: String): Resource<NewsResponse>
 
     /*
     Get Search method for search use case.
      */
     suspend fun getSearchedNewsHeadlines(
-        q: String,
-        page: Int
+        q: String
     ): Resource<NewsResponse>
 
     /*
@@ -35,12 +34,12 @@ interface NewsRepository {
 
     We pass article as the parameter because we want to save the article.
      */
-    suspend fun saveNews(article: Article)
+    suspend fun saveNews(results: Results)
 
     /*
     Delete method for delete use case for our local data source.
      */
-    suspend fun deleteSavedNewsArticles(article: Article)
+    suspend fun deleteSavedNewsArticles(results: Results)
 
     /*
     Get the list of saved news articles data from the database.
@@ -52,5 +51,5 @@ interface NewsRepository {
 
     Because it returns a stream, the data does not have to be suspended.
      */
-    fun getSavedData(): Flow<List<Article>>
+    fun getSavedData(): Flow<List<Results>>
 }

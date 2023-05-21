@@ -1,7 +1,7 @@
 package com.example.newsfeed.data.db
 
 import androidx.room.*
-import com.example.newsfeed.data.model.Article
+import com.example.newsfeed.data.model.Results
 import kotlinx.coroutines.flow.Flow
 
 
@@ -14,11 +14,11 @@ Typically if we want to use more CRUD functionalities, we would save them here.
 interface DAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(article: Article)
+    suspend fun insert(results: Results)
 
     @Query("SELECT * FROM articles")
-    fun getAllArticles(): Flow<List<Article>>
+    fun getAllArticles(): Flow<List<Results>>
 
     @Delete
-    suspend fun deleteSavedNewsArticles(article: Article)
+    suspend fun deleteSavedNewsArticles(results: Results)
 }

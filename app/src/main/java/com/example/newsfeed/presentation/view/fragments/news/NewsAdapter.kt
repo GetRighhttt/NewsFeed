@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.newsfeed.R
-import com.example.newsfeed.data.model.Article
+import com.example.newsfeed.data.model.Results
 import com.example.newsfeed.databinding.NewsListItemBinding
 
 /*
@@ -26,18 +26,18 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
     Class has two override methods that we will use to update the list.
      */
-    private val callback = object : DiffUtil.ItemCallback<Article>() {
+    private val callback = object : DiffUtil.ItemCallback<Results>() {
         /*
         Decides if two objects are the same.
          */
-        override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
+        override fun areItemsTheSame(oldItem: Results, newItem: Results): Boolean {
            return oldItem.link!! == newItem.link!!
         }
 
         /*
         Decides if those objects contents are the same.
          */
-        override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
+        override fun areContentsTheSame(oldItem: Results, newItem: Results): Boolean {
             return oldItem == newItem
         }
     }
@@ -55,23 +55,24 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
         /*
         Binding article info from data model to recycler view in a method.
          */
-        fun bind(article: Article) {
+        fun bind(results: Results) {
             binding.apply {
-                tvTitle.text = article.title
-                tvDescription.text = article.excerpt
-                tvPublishedAt.text = article.published_date
-                tvSource.text = article.rights?.toString() ?: ""
+                tvTitle.text = results.title
+                tvDescription.text = results.description
+                tvPublishedAt.text = results.pubDate
                 /*
                 Get the image with glide.
                  */
                 Glide.with(ivArticleImage.context)
-                    .load(article.media)
+                    .load(results.image_url)
                     .transition(DrawableTransitionOptions().crossFade())
+                    .centerCrop()
+                    .placeholder(R.drawable.ic_baseline_live_tv_24)
                     .into(ivArticleImage)
 
                 root.setOnClickListener{
                     onItemClickListener?.let {
-                        it(article)
+                        it(results)
                     }
                 }
             }
@@ -85,12 +86,12 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
     /*
 Item click listener variable.
  */
-    private var onItemClickListener: ((Article) -> Unit)? = null
+    private var onItemClickListener: ((Results) -> Unit)? = null
 
     /*
   Setter method for the onItemClickListener.
    */
-    fun setOnItemClickListener(listener: ((Article) -> Unit)?) {
+    fun setOnItemClickListener(listener: ((Results) -> Unit)?) {
         onItemClickListener = listener
     }
 

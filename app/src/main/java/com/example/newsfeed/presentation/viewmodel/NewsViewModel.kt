@@ -9,7 +9,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
-import com.example.newsfeed.data.model.Article
+import com.example.newsfeed.data.model.Results
 import com.example.newsfeed.data.model.NewsResponse
 import com.example.newsfeed.data.util.Resource
 import com.example.newsfeed.domain.usecase.*
@@ -25,7 +25,8 @@ state of the internet purposes.
  */
 @HiltViewModel
 class NewsViewModel @Inject constructor(
-    private val getNewsHeadlines: GetNewsHeadlines, private val app: Application,
+    private val getNewsHeadlines: GetNewsHeadlines,
+    private val app: Application,
     private val getSearchedNewsHeadlines: GetSearchedNewsHeadlines,
     private val saveNewsUseCase: SaveTheNewsArticle,
     private val getSavedNews: GetSavedNews,
@@ -40,11 +41,11 @@ class NewsViewModel @Inject constructor(
 
     To get the response, we need an instance of getNewsHeadLines from the UseCase.
      */
-    fun getNewsHeadLines(topic: String, page: Int) = viewModelScope.launch(Dispatchers.IO) {
+    fun getNewsHeadLines(topic: String) = viewModelScope.launch(Dispatchers.IO) {
         newsHeadlines.postValue(Resource.Loading())
         try {
             if (isNetworkAvailable(app)) {
-                val apiResult = getNewsHeadlines.execute(topic, page)
+                val apiResult = getNewsHeadlines.execute(topic)
                 newsHeadlines.postValue(apiResult)
             } else {
                 newsHeadlines.postValue(Resource.Error("Internet is not available."))
@@ -98,15 +99,13 @@ class NewsViewModel @Inject constructor(
     val searchedNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
 
     fun searchNews(
-        q: String,
-        page: Int
+        q: String
     ) = viewModelScope.launch {
         searchedNews.postValue(Resource.Loading())
         try {
             if (isNetworkAvailable(app)) {
                 val apiResult = getSearchedNewsHeadlines.execute(
-                    q,
-                    page
+                    q
                 )
                 searchedNews.postValue(apiResult)
             } else {
@@ -120,8 +119,8 @@ class NewsViewModel @Inject constructor(
     /**
      * Local data source impl.
      */
-    fun saveArticle(article: Article) = viewModelScope.launch {
-        saveNewsUseCase.execute(article)
+    fun saveArticle(results: Results) = viewModelScope.launch {
+        saveNewsUseCase.execute(results)
     }
 
     /*
@@ -138,7 +137,7 @@ class NewsViewModel @Inject constructor(
     /*
     Method to delete the saved news article.
      */
-    fun deleteSavedNewsArticle(article: Article) = viewModelScope.launch {
-        deleteSavedNewsArticle.execute(article)
+    fun deleteSavedNewsArticle(results: Results) = viewModelScope.launch {
+        deleteSavedNewsArticle.execute(results)
     }
 }

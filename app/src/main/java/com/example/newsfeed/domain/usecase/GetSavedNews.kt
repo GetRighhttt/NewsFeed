@@ -1,6 +1,6 @@
 package com.example.newsfeed.domain.usecase
 
-import com.example.newsfeed.data.model.Article
+import com.example.newsfeed.data.model.Results
 import com.example.newsfeed.domain.repository.NewsRepository
 import kotlinx.coroutines.flow.Flow
 
@@ -9,7 +9,7 @@ Use case to get the saved news articles, and we do not use suspend because it re
  */
 class GetSavedNews(private val newsRepository: NewsRepository) {
 
-    fun execute(): Flow<List<Article>> {
+    fun execute(): Flow<List<Results>> {
         return newsRepository.getSavedData()
     }
 }

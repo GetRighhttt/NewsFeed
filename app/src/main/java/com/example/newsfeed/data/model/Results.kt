@@ -14,26 +14,18 @@ import java.io.Serializable
  */
 
 @Entity(tableName = "articles")
-data class Article(
+data class Results(
 
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
     @SerializedName("title")
     val title: String?,
-    @SerializedName("author")
-    val author: String?,
-    @SerializedName("publishedDate")
-    val published_date: String?,
     @SerializedName("link")
     val link: String?,
-    @SerializedName("source")
-    val rights: String?,
-    @SerializedName("excerpt")
-    val excerpt: String?,
-    @SerializedName("summary")
-    val summary: String?,
-    @SerializedName("country")
-    val country: String?,
-    @SerializedName("media")
-    val media: String?
+    @SerializedName("description")
+    val description: String?,
+    @SerializedName("pubDate")
+    val pubDate: String?,
+    @SerializedName("image_url")
+    val image_url: String?
 ) : Serializable

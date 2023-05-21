@@ -1,6 +1,6 @@
 package com.example.newsfeed.data.repository.repositoryimpl
 
-import com.example.newsfeed.data.model.Article
+import com.example.newsfeed.data.model.Results
 import com.example.newsfeed.data.model.NewsResponse
 import com.example.newsfeed.data.repository.datasource.NewsLocalDataSource
 import com.example.newsfeed.data.repository.datasource.NewsRemoteDataSource
@@ -23,18 +23,16 @@ class NewsRepositoryImpl(
     private val newsRemoteDataSource: NewsRemoteDataSource,
     private val newsLocalDataSource: NewsLocalDataSource
 ) : NewsRepository {
-    override suspend fun getNewsHeadlines(topic: String, page: Int): Resource<NewsResponse> {
-        return responseToResource(newsRemoteDataSource.getTopHeadlines(topic, page))
+    override suspend fun getNewsHeadlines(q: String): Resource<NewsResponse> {
+        return responseToResource(newsRemoteDataSource.getTopHeadlines(q))
     }
 
     override suspend fun getSearchedNewsHeadlines(
-        q: String,
-        page: Int
+        q: String
     ): Resource<NewsResponse> {
         return responseToResource(
             newsRemoteDataSource.getSearchedNewsHeadlines(
-                q,
-                page
+                q
             )
         )
     }
@@ -52,15 +50,15 @@ class NewsRepositoryImpl(
         return Resource.Error(response.message())
     }
 
-    override suspend fun saveNews(article: Article) {
-        newsLocalDataSource.saveArticleToDB(article)
+    override suspend fun saveNews(results: Results) {
+        newsLocalDataSource.saveArticleToDB(results)
     }
 
-    override suspend fun deleteSavedNewsArticles(article: Article) {
-        newsLocalDataSource.deleteSavedNewsArticles(article)
+    override suspend fun deleteSavedNewsArticles(results: Results) {
+        newsLocalDataSource.deleteSavedNewsArticles(results)
     }
 
-    override fun getSavedData(): Flow<List<Article>> {
+    override fun getSavedData(): Flow<List<Results>> {
         return newsLocalDataSource.getSavedData()
     }
 }

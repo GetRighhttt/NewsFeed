@@ -1,5 +1,6 @@
 package com.example.newsfeed.presentation.view.fragments.news
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,8 @@ import com.example.newsfeed.data.util.Resource
 import com.example.newsfeed.databinding.FragmentNewsBinding
 import com.example.newsfeed.presentation.view.MainActivity
 import com.example.newsfeed.presentation.viewmodel.NewsViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import java.util.Collections.emptyList
 
 /*
 We will show an example of paging here, DI, and DiffUtil usage from the adapter.
@@ -37,8 +40,7 @@ class NewsFragment : Fragment() {
     /*
     News List arguments we are passing in.
      */
-    private var topic: String = "news"
-    private var page: Int = 1
+    private var topic: String = ""
     private var isLoading = false
     private var isAtTheLastPage = false
     private var pages = 0
@@ -77,22 +79,13 @@ class NewsFragment : Fragment() {
     this method to load more pages.
      */
     private fun displayNewsList() {
-        viewModel.getNewsHeadLines(topic, page)
+        viewModel.getNewsHeadLines(topic)
         viewModel.newsHeadlines.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
                     hideProgressBar()
                     response.data?.let {
-                        newsAdapter.differ.submitList(it.articles?.toList() ?: emptyList())
-                        /*
-                        Determining if at the last page with the page size being 20
-                         */
-                        if (it.total_hits % 50 == 0) {
-                            val pages = it.total_hits / 20 // check if last page
-                        } else {
-                            pages = it.total_hits / 40 + 1
-                        }
-                        isAtTheLastPage = page == pages
+                        newsAdapter.differ.submitList(it.results?.toList() ?: emptyList())
                     }
                 }
 
@@ -103,15 +96,23 @@ class NewsFragment : Fragment() {
                 is Resource.Error -> {
                     hideProgressBar()
                     response.message?.let {
-                        Toast.makeText(
-                            activity,
-                            "There was an Error loading $it.",
-                            Toast.LENGTH_LONG
-                        ).show()
+                        materialDialog(requireContext(), "Error", it)
                     }
                 }
             }
         }
+    }
+
+    private fun materialDialog(
+        context: Context,
+        title: String,
+        message: String
+    ) = object : MaterialAlertDialogBuilder(context) {
+        val dialog = MaterialAlertDialogBuilder(context)
+            .setTitle(title)
+            .setMessage(message)
+            .setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
+            .show()
     }
 
     /*
@@ -180,7 +181,7 @@ class NewsFragment : Fragment() {
                         && hasReachedToEnd && isScrolling
                 if (shouldPaginate) {
                     pages++
-                    viewModel.getNewsHeadLines(topic, page)
+                    viewModel.getNewsHeadLines(topic)
                     isScrolling = false
                 }
             }
@@ -199,7 +200,7 @@ class NewsFragment : Fragment() {
                 override fun onQueryTextSubmit(p0: String?): Boolean {
                     binding.apply {
                         rvNews.smoothScrollToPosition(0)
-                        val query = viewModel.searchNews(q = p0.toString(), page).toString()
+                        val query = viewModel.searchNews(q = p0.toString()).toString()
                         displaySearchedNews(query)
                         clearFocus()
                         return true
@@ -222,16 +223,7 @@ class NewsFragment : Fragment() {
                 is Resource.Success -> {
                     hideProgressBar()
                     response.data?.let {
-                        newsAdapter.differ.submitList(it.articles?.toList() ?: emptyList())
-                        /*
-                        Determining if at the last page with the page size being 20
-                         */
-                        if (it.total_hits % 50 == 0) {
-                            val pages = it.total_hits / 20 // check if last page
-                        } else {
-                            pages = it.total_hits / 20 + 1
-                        }
-                        isAtTheLastPage = page == pages
+                        newsAdapter.differ.submitList(it.results?.toList() ?: emptyList())
                     }
                 }
 

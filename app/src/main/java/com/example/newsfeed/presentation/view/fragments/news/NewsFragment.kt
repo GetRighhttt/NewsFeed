@@ -37,23 +37,10 @@ class NewsFragment : Fragment() {
     /*
     News List arguments we are passing in.
      */
-    private var country: String = "us"
+    private var topic: String = "news"
     private var page: Int = 1
-    private var searchQuery: String = "q"
-
-    /*
-    Define a variable to check if data is loading.
-     */
     private var isLoading = false
-
-    /*
-    Variable to check for the last page.
-     */
     private var isAtTheLastPage = false
-
-    /*
-    Variable to check if at the last page with Modulus operator when showing the list.
-     */
     private var pages = 0
 
     override fun onCreateView(
@@ -64,18 +51,6 @@ class NewsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_news, container, false)
     }
 
-    /*
-    Get the ViewModel & adapter instance we constructed inside the main activity.
-
-    onViewCreated called immediately after all the views have been created.
-    It's safer to avoid
-    unexpected errors as a result of partially created views.
-
-    Then we use our method to initialize the recycler view.
-
-    This is how we are going to pass our web view details to display the details
-    of our news article in our Details Fragment.
-     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentNewsBinding.bind(view)
@@ -90,9 +65,9 @@ class NewsFragment : Fragment() {
                 bundle
             )
         }
-        initRecyclerView() // method to initialize recycler view
-        displayNewsList() // method to display the list depending on the state
-        setSearchView() // sets the search view
+        initRecyclerView()
+        displayNewsList()
+        setSearchView()
     }
 
     /*
@@ -102,7 +77,7 @@ class NewsFragment : Fragment() {
     this method to load more pages.
      */
     private fun displayNewsList() {
-        viewModel.getNewsHeadLines(country, page)
+        viewModel.getNewsHeadLines(topic, page)
         viewModel.newsHeadlines.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
@@ -112,10 +87,10 @@ class NewsFragment : Fragment() {
                         /*
                         Determining if at the last page with the page size being 20
                          */
-                        if (it.totalResults % 50 == 0) {
-                            val pages = it.totalResults / 20 // check if last page
+                        if (it.total_hits % 50 == 0) {
+                            val pages = it.total_hits / 20 // check if last page
                         } else {
-                            pages = it.totalResults / 40 + 1
+                            pages = it.total_hits / 40 + 1
                         }
                         isAtTheLastPage = page == pages
                     }
@@ -205,7 +180,7 @@ class NewsFragment : Fragment() {
                         && hasReachedToEnd && isScrolling
                 if (shouldPaginate) {
                     pages++
-                    viewModel.getNewsHeadLines(country, page)
+                    viewModel.getNewsHeadLines(topic, page)
                     isScrolling = false
                 }
             }
@@ -224,7 +199,7 @@ class NewsFragment : Fragment() {
                 override fun onQueryTextSubmit(p0: String?): Boolean {
                     binding.apply {
                         rvNews.smoothScrollToPosition(0)
-                        val query = viewModel.searchNews(country, p0.toString(), page).toString()
+                        val query = viewModel.searchNews(q = p0.toString(), page).toString()
                         displaySearchedNews(query)
                         clearFocus()
                         return true
@@ -251,10 +226,10 @@ class NewsFragment : Fragment() {
                         /*
                         Determining if at the last page with the page size being 20
                          */
-                        if (it.totalResults % 100 == 0) {
-                            val pages = it.totalResults / 100 // check if last page
+                        if (it.total_hits % 50 == 0) {
+                            val pages = it.total_hits / 20 // check if last page
                         } else {
-                            pages = it.totalResults / 100 + 1
+                            pages = it.total_hits / 20 + 1
                         }
                         isAtTheLastPage = page == pages
                     }

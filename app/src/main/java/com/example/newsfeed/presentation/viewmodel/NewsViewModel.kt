@@ -15,7 +15,6 @@ import com.example.newsfeed.data.util.Resource
 import com.example.newsfeed.domain.usecase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -41,11 +40,11 @@ class NewsViewModel @Inject constructor(
 
     To get the response, we need an instance of getNewsHeadLines from the UseCase.
      */
-    fun getNewsHeadLines(country: String, page: Int) = viewModelScope.launch(Dispatchers.IO) {
+    fun getNewsHeadLines(topic: String, page: Int) = viewModelScope.launch(Dispatchers.IO) {
         newsHeadlines.postValue(Resource.Loading())
         try {
             if (isNetworkAvailable(app)) {
-                val apiResult = getNewsHeadlines.execute(country, page)
+                val apiResult = getNewsHeadlines.execute(topic, page)
                 newsHeadlines.postValue(apiResult)
             } else {
                 newsHeadlines.postValue(Resource.Error("Internet is not available."))
@@ -99,15 +98,14 @@ class NewsViewModel @Inject constructor(
     val searchedNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
 
     fun searchNews(
-        country: String,
-        searchQuery: String, page: Int
+        q: String,
+        page: Int
     ) = viewModelScope.launch {
         searchedNews.postValue(Resource.Loading())
         try {
             if (isNetworkAvailable(app)) {
                 val apiResult = getSearchedNewsHeadlines.execute(
-                    country,
-                    searchQuery,
+                    q,
                     page
                 )
                 searchedNews.postValue(apiResult)

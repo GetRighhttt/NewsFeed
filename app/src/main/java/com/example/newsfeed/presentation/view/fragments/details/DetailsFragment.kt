@@ -1,12 +1,10 @@
 package com.example.newsfeed.presentation.view.fragments.details
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.navigation.fragment.navArgs
 import com.example.newsfeed.R
@@ -14,8 +12,6 @@ import com.example.newsfeed.databinding.FragmentDetailsBinding
 import com.example.newsfeed.presentation.view.MainActivity
 import com.example.newsfeed.presentation.viewmodel.NewsViewModel
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.delay
-import java.lang.IllegalStateException
 
 
 class DetailsFragment : Fragment() {
@@ -50,7 +46,7 @@ class DetailsFragment : Fragment() {
         val article = args.selectedArticle
         binding.webview.apply {
             webViewClient = WebViewClient()
-            val theUrl = article.url?.toString()
+            val theUrl = article.link?.toString()
             webViewClient.onPageFinished(this, theUrl)
             theUrl?.let { this.loadUrl(it) }
         }

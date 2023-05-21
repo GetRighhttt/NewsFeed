@@ -4,7 +4,6 @@ package com.example.newsfeed.data.model
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 import android.os.Parcelable
-import com.example.newsfeed.data.model.Article
 
 @Parcelize
 data class NewsResponse(
@@ -13,5 +12,5 @@ data class NewsResponse(
     @SerializedName("status")
     val status: String,
     @SerializedName("totalResults")
-    val totalResults: Int
+    val total_hits: Int
 ) : Parcelable

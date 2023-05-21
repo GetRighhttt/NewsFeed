@@ -20,14 +20,13 @@ interface NewsRepository {
     /*
     Get method for get use case.
      */
-    suspend fun getNewsHeadlines(country: String, page: Int): Resource<NewsResponse>
+    suspend fun getNewsHeadlines(topic: String, page: Int): Resource<NewsResponse>
 
     /*
     Get Search method for search use case.
      */
     suspend fun getSearchedNewsHeadlines(
-        country: String,
-        searchQuery: String,
+        q: String,
         page: Int
     ): Resource<NewsResponse>
 

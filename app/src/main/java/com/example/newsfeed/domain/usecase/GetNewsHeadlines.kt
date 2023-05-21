@@ -10,7 +10,7 @@ Use Case to get the news head lines.
 For each use case, we always reference the repository.
  */
 class GetNewsHeadlines(private val newsRepository: NewsRepository) {
-    suspend fun execute(country: String, page: Int): Resource<NewsResponse> {
-        return newsRepository.getNewsHeadlines(country, page)
+    suspend fun execute(topic: String, page: Int): Resource<NewsResponse> {
+        return newsRepository.getNewsHeadlines(topic, page)
     }
 }

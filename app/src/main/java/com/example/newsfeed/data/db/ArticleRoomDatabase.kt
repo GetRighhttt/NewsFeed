@@ -9,8 +9,7 @@ import com.example.newsfeed.data.model.Article
 /**
  * Typical room database class except here we have a type converter.
  */
-@Database(entities = [Article::class], version = 1, exportSchema = false)
-@TypeConverters(Converters::class)
+@Database(entities = [Article::class], version = 3, exportSchema = false)
 abstract class ArticleRoomDatabase : RoomDatabase() {
     // abstract getter for Dao interface
     abstract fun getArticleDAO(): DAO

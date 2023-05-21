@@ -30,7 +30,7 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
         Decides if two objects are the same.
          */
         override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
-           return oldItem.url!! == newItem.url!!
+           return oldItem.link!! == newItem.link!!
         }
 
         /*
@@ -57,14 +57,14 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
         fun bind(article: Article) {
             binding.apply {
                 tvTitle.text = article.title
-                tvDescription.text = article.description
-                tvPublishedAt.text = article.publishedAt
-                tvSource.text = article.source!!.name
+                tvDescription.text = article.excerpt
+                tvPublishedAt.text = article.published_date
+                tvSource.text = article.rights?.toString() ?: ""
                 /*
                 Get the image with glide.
                  */
                 Glide.with(ivArticleImage.context)
-                    .load(article.urlToImage)
+                    .load(article.media)
                     .into(ivArticleImage)
 
                 root.setOnClickListener{

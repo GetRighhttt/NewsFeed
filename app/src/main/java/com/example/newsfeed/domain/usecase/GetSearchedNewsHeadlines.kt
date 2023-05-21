@@ -9,7 +9,7 @@ Here for this use case, we will search for certain news articles.
  */
 class GetSearchedNewsHeadlines(private val newsRepository: NewsRepository) {
 
-    suspend fun execute(country: String, searchQuery: String, page: Int): Resource<NewsResponse> {
-        return newsRepository.getSearchedNewsHeadlines(country, searchQuery, page)
+    suspend fun execute(q: String, page: Int): Resource<NewsResponse> {
+        return newsRepository.getSearchedNewsHeadlines(q, page)
     }
 }

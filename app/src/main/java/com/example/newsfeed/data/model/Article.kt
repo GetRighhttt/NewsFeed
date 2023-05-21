@@ -18,20 +18,22 @@ data class Article(
 
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
-    @SerializedName("author")
-    val author: String?,
-    @SerializedName("content")
-    val content: String?,
-    @SerializedName("description")
-    val description: String?,
-    @SerializedName("publishedAt")
-    val publishedAt: String?,
-    @SerializedName("source")
-    val source: Source?,
     @SerializedName("title")
     val title: String?,
-    @SerializedName("url")
-    val url: String?,
-    @SerializedName("urlToImage")
-    val urlToImage: String?
+    @SerializedName("author")
+    val author: String?,
+    @SerializedName("publishedDate")
+    val published_date: String?,
+    @SerializedName("link")
+    val link: String?,
+    @SerializedName("source")
+    val rights: String?,
+    @SerializedName("excerpt")
+    val excerpt: String?,
+    @SerializedName("summary")
+    val summary: String?,
+    @SerializedName("country")
+    val country: String?,
+    @SerializedName("media")
+    val media: String?
 ) : Serializable

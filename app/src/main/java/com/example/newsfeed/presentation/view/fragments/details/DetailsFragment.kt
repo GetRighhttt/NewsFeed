@@ -46,13 +46,13 @@ class DetailsFragment : Fragment() {
         val article = args.selectedArticle
         binding.webview.apply {
             webViewClient = WebViewClient()
-            val theUrl = article.url?.toString()
+            val theUrl = article.link?.toString()
             webViewClient.onPageFinished(this, theUrl)
             theUrl?.let { this.loadUrl(it) }
         }
 
         /*
-        Use that view model instance to get the savearticle() method and save the article
+        Use that view model instance to get the save article() method and save the article
         instance from the bundle arguments above.
 
          */

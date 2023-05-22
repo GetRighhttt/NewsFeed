@@ -7,7 +7,9 @@ It provides the top News headlines with a search functionality.<br>
 When an article is clicked, a user is routed to a webview of that article<br>
 that is read in straight from an API. A floating action button allows the user<br>
 to save the article to a local database(ROOM). A tab layout is used to swtich between<br>
-the current articles saved, and the latest articles listed.
+the current articles saved, and the latest articles listed. Users can swipe to delete<br>
+a saved article in the recycler view, and also undo that action by pressing "Undo" on<br>
+the Snackbar that displays.
 
 #### Here is a list of all the features used in this application:
 
@@ -25,6 +27,7 @@ the current articles saved, and the latest articles listed.
 - Live Data
 - Navigation - SafeArgs
 - Glide
+- Swipe to delete
 - WebView
 - SearchView
 - Recycler View

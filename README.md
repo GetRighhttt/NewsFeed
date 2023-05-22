@@ -3,10 +3,11 @@
 ### Description :
 
 <p>This app is a clean code architected app.<br>
-It provides the top News headlines, and implements a search<br>
-functionality. It also implements a webview to display the <br>
-story more in depth. You can save your top stories as well to<br>
-the room database.</p>
+It provides the top News headlines with a search functionality.<br>
+When an article is clicked, a user is routed to a webview of that article<br>
+that is read in straight from an API. A floating action button allows the user<br>
+to save the article to a local database(ROOM). A tab layout is used to swtich between<br>
+the current articles saved, and the latest articles listed.
 
 #### Here is a list of all the features used in this application:
 
@@ -24,6 +25,8 @@ the room database.</p>
 - Live Data
 - Navigation - SafeArgs
 - Glide
+- WebView
+- SearchView
 - Recycler View
 - Recycler View Animations
 - View Binding

@@ -36,3 +36,5 @@ the Snackbar that displays.
 - Bottom Navigation
 - WebView
 <hr>
+
+https://github.com/GetRighhttt/NewsFeed/assets/105057858/bdef0fcc-a2e1-4843-abc1-2ae9cf85d696

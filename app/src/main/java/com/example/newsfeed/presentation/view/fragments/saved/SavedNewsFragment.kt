@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +18,7 @@ import com.example.newsfeed.presentation.view.MainActivity
 import com.example.newsfeed.presentation.view.fragments.news.NewsAdapter
 import com.example.newsfeed.presentation.viewmodel.NewsViewModel
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
 
 class SavedNewsFragment : Fragment() {
@@ -50,7 +52,7 @@ class SavedNewsFragment : Fragment() {
             )
         }
         initRecyclerView() // method to initialize recycler view
-        observeLiveData() // method to observe Live Data from viewmodel
+        observeLiveData() // method to observe Live Data from view model
         createItemCallBack() // method for swipe mechanics to delete article
     }
 
@@ -106,12 +108,16 @@ class SavedNewsFragment : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
                 val article = savedAdapter.differ.currentList[position]
-                viewModel.deleteSavedNewsArticle(article)
+                lifecycleScope.launch {
+                    viewModel.deleteSavedNewsArticle(article)
+                }
                 view?.let {
                     Snackbar.make(it, "Article Deleted", Snackbar.LENGTH_LONG)
                         .apply {
                             setAction("Undo") {
-                                viewModel.saveArticle(article)
+                                lifecycleScope.launch {
+                                    viewModel.saveArticle(article)
+                                }
                             }
                         }
                         .show()

@@ -9,6 +9,7 @@ import android.widget.AbsListView
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +19,7 @@ import com.example.newsfeed.databinding.FragmentNewsBinding
 import com.example.newsfeed.presentation.view.MainActivity
 import com.example.newsfeed.presentation.viewmodel.NewsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.launch
 import java.util.Collections.emptyList
 
 /*
@@ -96,14 +98,14 @@ class NewsFragment : Fragment() {
                 is Resource.Error -> {
                     hideProgressBar()
                     response.message?.let {
-                        materialDialog(requireContext(), "Error", it)
+                        buildMaterialDialog(requireContext(), "Error", it)
                     }
                 }
             }
         }
     }
 
-    private fun materialDialog(
+    private fun buildMaterialDialog(
         context: Context,
         title: String,
         message: String
@@ -181,7 +183,9 @@ class NewsFragment : Fragment() {
                         && hasReachedToEnd && isScrolling
                 if (shouldPaginate) {
                     pages++
-                    viewModel.getNewsHeadLines(topic)
+                    lifecycleScope.launch {
+                        viewModel.getNewsHeadLines(topic)
+                    }
                     isScrolling = false
                 }
             }
@@ -200,8 +204,10 @@ class NewsFragment : Fragment() {
                 override fun onQueryTextSubmit(p0: String?): Boolean {
                     binding.apply {
                         rvNews.smoothScrollToPosition(0)
-                        val query = viewModel.searchNews(q = p0.toString()).toString()
-                        displaySearchedNews(query)
+                        lifecycleScope.launch {
+                            val query = viewModel.searchNews(query = p0.toString()).toString()
+                            displaySearchedNews(query)
+                        }
                         clearFocus()
                         return true
                     }

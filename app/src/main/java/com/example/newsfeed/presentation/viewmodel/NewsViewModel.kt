@@ -99,13 +99,13 @@ class NewsViewModel @Inject constructor(
     val searchedNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
 
     fun searchNews(
-        q: String
-    ) = viewModelScope.launch {
+        query: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
         searchedNews.postValue(Resource.Loading())
         try {
             if (isNetworkAvailable(app)) {
                 val apiResult = getSearchedNewsHeadlines.execute(
-                    q
+                    query
                 )
                 searchedNews.postValue(apiResult)
             } else {
@@ -119,25 +119,25 @@ class NewsViewModel @Inject constructor(
     /**
      * Local data source impl.
      */
-    fun saveArticle(results: Results) = viewModelScope.launch {
+    fun saveArticle(results: Results) = viewModelScope.launch(Dispatchers.IO) {
         saveNewsUseCase.execute(results)
     }
 
     /*
-    get the saved news article.
+    get the saved news article
 
     Code to get the flow as a query and convert it to live data.
      */
-    fun getSavedNews() = liveData {
-        getSavedNews.execute().collect {
-            emit(it)
+    fun getSavedNews() = liveData(Dispatchers.IO) {
+        getSavedNews.execute().collect { results ->
+            emit(results)
         }
     }
 
     /*
     Method to delete the saved news article.
      */
-    fun deleteSavedNewsArticle(results: Results) = viewModelScope.launch {
+    fun deleteSavedNewsArticle(results: Results) = viewModelScope.launch(Dispatchers.IO) {
         deleteSavedNewsArticle.execute(results)
     }
 }

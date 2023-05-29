@@ -5,14 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AbsListView
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.newsfeed.R
 import com.example.newsfeed.data.util.Resource
 import com.example.newsfeed.databinding.FragmentNewsBinding
@@ -35,17 +33,10 @@ class NewsFragment : Fragment() {
     private lateinit var newsAdapter: NewsAdapter
 
     /*
-    Define a paging variable.
-     */
-    private var isScrolling = false // by default false
-
-    /*
     News List arguments we are passing in.
      */
     private var topic: String = ""
     private var isLoading = false
-    private var isAtTheLastPage = false
-    private var pages = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -128,7 +119,6 @@ class NewsFragment : Fragment() {
         binding.rvNews.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(activity)
-            addOnScrollListener(this@NewsFragment.onScrollListener)
         }
     }
 
@@ -147,50 +137,6 @@ class NewsFragment : Fragment() {
         binding.progressBar.apply {
             visibility = View.GONE
         }
-    }
-
-    /*
-    Override this method for manual paging example.
-
-    Paging - fetching data from api to load more pages.
-     */
-    private val onScrollListener = object : RecyclerView.OnScrollListener() {
-
-        /*
-        Method to define what happens when the scroll state is changed.
-         */
-        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-            super.onScrollStateChanged(recyclerView, newState)
-            if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
-                isScrolling = true
-            }
-        }
-
-        /*
-        Method to define what happens when we are scrolling, and to determine when we should
-        be paging.
-         */
-        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-            super.onScrolled(recyclerView, dx, dy)
-            binding.rvNews.apply {
-                val layoutManager = layoutManager as LinearLayoutManager
-                val sizeOfCurrentList = layoutManager.itemCount
-                val visibleItems = layoutManager.childCount
-                val positionOfStartingItem = layoutManager.findFirstVisibleItemPosition()
-
-                val hasReachedToEnd = positionOfStartingItem + visibleItems >= sizeOfCurrentList
-                val shouldPaginate = !isLoading && !isAtTheLastPage
-                        && hasReachedToEnd && isScrolling
-                if (shouldPaginate) {
-                    pages++
-                    lifecycleScope.launch {
-                        viewModel.getNewsHeadLines(topic)
-                    }
-                    isScrolling = false
-                }
-            }
-        }
-
     }
 
     /**

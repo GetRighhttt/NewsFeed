@@ -65,7 +65,7 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
                  */
                 Glide.with(ivArticleImage.context)
                     .load(results.image_url)
-                    .transition(DrawableTransitionOptions().crossFade())
+                    .transition(DrawableTransitionOptions().crossFade(1000))
                     .fitCenter()
                     .placeholder(R.drawable.ic_baseline_live_tv_24)
                     .into(ivArticleImage)

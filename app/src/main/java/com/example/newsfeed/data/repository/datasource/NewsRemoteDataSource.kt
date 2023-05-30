@@ -10,5 +10,4 @@ interface NewsRemoteDataSource {
 
     suspend fun getTopHeadlines(topic: String): Response<NewsResponse>
     suspend fun getSearchedNewsHeadlines(q: String): Response<NewsResponse>
-
 }

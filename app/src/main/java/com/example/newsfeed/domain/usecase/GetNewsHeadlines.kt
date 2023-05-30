@@ -3,6 +3,8 @@ package com.example.newsfeed.domain.usecase
 import com.example.newsfeed.data.model.NewsResponse
 import com.example.newsfeed.data.util.Resource
 import com.example.newsfeed.domain.repository.NewsRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 /*
 Use Case to get the news head lines.
@@ -11,6 +13,9 @@ For each use case, we always reference the repository.
  */
 class GetNewsHeadlines(private val newsRepository: NewsRepository) {
     suspend fun execute(q: String): Resource<NewsResponse> {
-        return newsRepository.getNewsHeadlines(q)
+        val news = withContext(Dispatchers.IO) {
+            newsRepository.getNewsHeadlines(q)
+        }
+        return news
     }
 }

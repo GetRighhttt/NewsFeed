@@ -67,7 +67,7 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
                     .load(results.image_url)
                     .transition(DrawableTransitionOptions().crossFade(1000))
                     .fitCenter()
-                    .placeholder(R.drawable.ic_baseline_live_tv_24)
+                    .placeholder(R.drawable.icons8_placeholder_64)
                     .into(ivArticleImage)
 
                 root.setOnClickListener{

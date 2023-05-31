@@ -8,4 +8,5 @@
     <string name="news_headlines">News Headlines</string>
     <string name="description">DESCRIPTION</string>
     <string name="save_article">Save_Article</string>
+    <string name="published">Published:</string>
 </resources>

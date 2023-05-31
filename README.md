@@ -37,5 +37,4 @@ the Snackbar that displays.
 - WebView
 <hr>
 
-
-https://github.com/GetRighhttt/NewsFeed/assets/105057858/a03c244f-4c05-4431-bd86-b4a70dc55d6c
+https://github.com/GetRighhttt/NewsFeed/assets/105057858/287fb82c-b6e7-40db-a53f-b95b0f0548c2

@@ -16,8 +16,6 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
-//        buildConfigField("String","API_KEY",MY_KEY)
-//        buildConfigField("String","BASE_URL",BASE_URL)
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -43,10 +41,6 @@ android {
 }
 
 dependencies {
-    /**
-     * Typical Dependencies necessary for all major projects currently.
-     * 2.5.0-rco2 or 2.5.0-alpha02/6 future newest dependencies.
-     */
 
     // Declaring versions for implementation
     ext.roomVersion = "2.4.2"

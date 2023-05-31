@@ -79,6 +79,15 @@ class NewsFragment : Fragment() {
                     hideProgressBar()
                     response.data?.let {
                         newsAdapter.differ.submitList(it.results?.toList() ?: emptyList())
+                        if (it.results!!.isEmpty()) {
+                            context?.let {
+                                buildMaterialDialog(
+                                    requireContext(),
+                                    "Ugh Oh!",
+                                    "The list is empty! Try searching for another topic!"
+                                )
+                            }
+                        }
                     }
                 }
 
@@ -104,7 +113,7 @@ class NewsFragment : Fragment() {
         val dialog = MaterialAlertDialogBuilder(context)
             .setTitle(title)
             .setMessage(message)
-            .setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
+            .setPositiveButton("Cancel") { dialog, _ -> dialog.dismiss() }
             .show()
     }
 

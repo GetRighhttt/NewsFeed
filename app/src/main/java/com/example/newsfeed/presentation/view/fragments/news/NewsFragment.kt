@@ -178,7 +178,7 @@ class NewsFragment : Fragment() {
     /*
     Method to display the searched news.
      */
-    fun displaySearchedNews(query: String) {
+    private fun displaySearchedNews(query: String) {
         viewModel.searchedNews.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {

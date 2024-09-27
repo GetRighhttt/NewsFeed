@@ -1,9 +1,11 @@
 package com.example.newsfeed.data.model
 
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 
 /**
@@ -12,12 +14,18 @@ import java.io.Serializable
  *
  * @Entity used to mark ROOM.
  */
-
+@Parcelize
 @Entity(tableName = "articles")
 data class Results(
 
     @PrimaryKey(autoGenerate = true)
-    val id: Int? = null,
+    val id: Int,
+    @SerializedName("article_id")
+    val articleId: String?,
+    @SerializedName("author")
+    val author: String?,
+    @SerializedName("category")
+    val category: String?,
     @SerializedName("title")
     val title: String?,
     @SerializedName("link")
@@ -28,4 +36,4 @@ data class Results(
     val pubDate: String?,
     @SerializedName("image_url")
     val image_url: String?
-) : Serializable
+) : Parcelable

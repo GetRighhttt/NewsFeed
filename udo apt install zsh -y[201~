@@ -1,0 +1,64 @@
+[33m7f98bec[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m forgot to replace a visibility modifier.
+[33m3fcf026[m added a material dialog for when the list is empty.
+[33m2fa9230[m Update README.md
+[33m62fef0b[m editing the news item layout.
+[33meacbca6[m adjusted proper spacing.
+[33mc75c801[m refactoring dependencies.
+[33m1afd096[m tried to change the api and ended up with issues.
+[33m9675858[m removing unnecessary primary dependencies.
+[33m0bd3387[m Update README.md
+[33mcf2df59[m adding more suspending threads to improve functionality of application.
+[33m04d180c[m refactoring code to use a background coroutine thread for local and remote data source impl.
+[33me7134c1[m added a crossfade duration.
+[33m26e0941[m refactoring the images.
+[33m40bd80d[m removed paging that was causing errors.
+[33m027016e[m fixing the look of the pages.
+[33m4bae35e[m improving performance by ensuring methods are launched using coroutines on a background thread.
+[33me8b234f[m Update README.md
+[33m3a923d3[m Update README.md
+[33m4074937[m Update README.md
+[33maecc958[m refactored api code to fit new api in... having issues.
+[33m97acefb[m reverting changes.
+[33m00a565d[m changes.
+[33me313ba8[m Update README.md
+[33mb550e5b[m refactored searchView color and code.
+[33m55fedd1[m refactoring list item and color scheme.
+[33m29bde62[m fixed all problems with news application.
+[33m9cd5375[m saved news and news refactoring and code enhancement.
+[33mca5d214[m action saved to details fragment.
+[33m9d649e8[m refactoring.
+[33meca5854[m fixed searchView.
+[33mc26e511[m more refactoring.
+[33maef5552[m trying to debug issues.
+[33m523c7d2[m refactoring code.
+[33m4dd7c62[m fixed issues with safe args, api, gradle, and build config files.
+[33m063f1ce[m Update README.md
+[33mebe2672[m changed pagination.
+[33m6c82fe5[m Update README.md
+[33m413db56[m New Commit for Paging
+[33mb048883[m New Commit for Paging
+[33m20cce86[m Added Hilt annotation for View Model
+[33m3b07dd8[m Merge branch 'master' of https://github.com/GetRighhttt/NewsFeed
+[33mf05e62a[m Finished the Swipe to Delete Functionality.
+[33mfca9a12[m Update README.md
+[33m8104e7e[m Added the save functionality and recyclerview.
+[33m44470ba[m Changed up some colors.
+[33m0e89c62[m Added a floating action button.
+[33m48eb5cd[m Room Database Impl.
+[33ma3cba59[m Added a style theme to SearchView.
+[33m5bebdc4[m Finished SearchView.
+[33mc52d854[m Update README.md
+[33m315374e[m Create README.md
+[33mcb11dd0[m Implemented Seach functionality.
+[33mc92af9a[m Added more comments and improved some logic.
+[33mcbb8116[m Finally got the details page to work.
+[33m2406cee[m Made some small comments.
+[33m7690069[m New commit.
+[33m39db66b[m New commit.
+[33mf18b141[m New commit.
+[33m0741360[m New commit.
+[33m5842867[m New commit.
+[33m2caacea[m New commit.
+[33ma3a1517[m New commit.
+[33m49eaffe[m New commit.
+[33mc54c748[m Initial commit

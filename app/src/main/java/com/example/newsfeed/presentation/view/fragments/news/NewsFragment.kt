@@ -42,7 +42,6 @@ class NewsFragment : Fragment() {
     /*
     News List arguments we are passing in.
      */
-    private var topic: String = ""
     private var isLoading = false
     private var isAtTheLastPage = false
     private var pages = 0
@@ -62,7 +61,7 @@ class NewsFragment : Fragment() {
         newsAdapter = (activity as MainActivity).newsAdapter // get adapter from Main
         newsAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
-                putSerializable("selected_article", it)
+                putParcelable("selected_article", it)
             }
             findNavController().navigate(
                 R.id.action_newsFragment_to_detailsFragment,
@@ -81,7 +80,7 @@ class NewsFragment : Fragment() {
     this method to load more pages.
      */
     private fun displayNewsList() {
-        viewModel.getNewsHeadLines(topic)
+        viewModel.getNewsHeadLines()
         viewModel.newsHeadlines.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
@@ -184,7 +183,7 @@ class NewsFragment : Fragment() {
                 if (shouldPaginate) {
                     pages++
                     lifecycleScope.launch {
-                        viewModel.getNewsHeadLines(topic)
+                        viewModel.getNewsHeadLines()
                     }
                     isScrolling = false
                 }

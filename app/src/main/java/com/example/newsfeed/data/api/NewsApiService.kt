@@ -15,30 +15,32 @@ interface NewsApiService {
     Each query serves as a new end point.
     'x-api-key': 'YOUR_API_KEY'
      */
-    @GET("api/1/news")
+
+    // https://newsdata.io/api/1/latest?apikey=pub_5470442430656bf6f0c255d047e0993beca1b&q=pizza
+    @GET("api/1/latest")
     suspend fun getTopHeadlines(
         @Query("apikey")
         apikey: String = "pub_225267ae16ee0419ec31a02756dca11d12937",
         @Query("q")
-        q: String,
+        q: String = "Sports",
         @Query("country")
-        countries: Array<String> = arrayOf("us"),
+        countries: List<String> = listOf("US"),
         @Query("language")
-        lang: Array<String> = arrayOf("en")
+        lang: String = "en"
     ): Response<NewsResponse>
 
     /**
      * Define another function to get searched News Headlines
      */
-    @GET("api/1/news")
+    @GET("api/1/latest")
     suspend fun getSearchedTopHeadlines(
         @Query("q")
         q: String,
         @Query("apikey")
         apikey: String = "pub_225267ae16ee0419ec31a02756dca11d12937",
         @Query("country")
-        countries: Array<String> = arrayOf("US"),
+        countries: List<String> = listOf("US"),
         @Query("language")
-        lang: Array<String> = arrayOf("en")
+        lang: String = "en"
     ): Response<NewsResponse>
 }

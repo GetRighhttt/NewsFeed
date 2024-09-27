@@ -23,8 +23,12 @@ class NewsRepositoryImpl(
     private val newsRemoteDataSource: NewsRemoteDataSource,
     private val newsLocalDataSource: NewsLocalDataSource
 ) : NewsRepository {
-    override suspend fun getNewsHeadlines(q: String): Resource<NewsResponse> {
-        return responseToResource(newsRemoteDataSource.getTopHeadlines(q))
+    override suspend fun getNewsHeadlines(): Resource<NewsResponse> {
+        return try {
+            responseToResource(newsRemoteDataSource.getTopHeadlines())
+        } catch (e: Exception) {
+            Resource.Error(e.message.toString())
+        }
     }
 
     override suspend fun getSearchedNewsHeadlines(

@@ -7,7 +7,7 @@ import android.os.Parcelable
 
 @Parcelize
 data class NewsResponse(
-    @SerializedName("Status")
+    @SerializedName("status")
     val status: String,
     @SerializedName("totalResults")
     val totalResults: Int,

@@ -34,6 +34,10 @@ class NewsViewModel @Inject constructor(
 ) : AndroidViewModel(app) {
     val newsHeadlines: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
 
+    init {
+        getNewsHeadLines()
+    }
+
     /*
     Use coroutines to launch a job to get the news headlines in a background thread.
 
@@ -41,11 +45,11 @@ class NewsViewModel @Inject constructor(
 
     To get the response, we need an instance of getNewsHeadLines from the UseCase.
      */
-    fun getNewsHeadLines(topic: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun getNewsHeadLines() = viewModelScope.launch(Dispatchers.IO) {
         newsHeadlines.postValue(Resource.Loading())
         try {
             if (isNetworkAvailable(app)) {
-                val apiResult = getNewsHeadlines.execute(topic)
+                val apiResult = getNewsHeadlines.execute()
                 newsHeadlines.postValue(apiResult)
             } else {
                 newsHeadlines.postValue(Resource.Error("Internet is not available."))
@@ -139,5 +143,9 @@ class NewsViewModel @Inject constructor(
      */
     fun deleteSavedNewsArticle(results: Results) = viewModelScope.launch(Dispatchers.IO) {
         deleteSavedNewsArticle.execute(results)
+    }
+
+    companion object {
+        const val DEFAULT_TOPIC = "sports"
     }
 }

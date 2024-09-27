@@ -57,14 +57,14 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
          */
         fun bind(results: Results) {
             binding.apply {
-                tvTitle.text = results.title
-                tvDescription.text = results.description
-                tvPublishedAt.text = results.pubDate
+                tvTitle.text = results.title ?: ""
+                tvDescription.text = results.description ?: ""
+                tvPublishedAt.text = results.pubDate ?: ""
                 /*
                 Get the image with glide.
                  */
                 Glide.with(ivArticleImage.context)
-                    .load(results.image_url)
+                    .load(results.image_url ?: "")
                     .transition(DrawableTransitionOptions().crossFade())
                     .centerCrop()
                     .placeholder(R.drawable.ic_baseline_live_tv_24)

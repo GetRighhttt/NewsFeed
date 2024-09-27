@@ -79,7 +79,7 @@ class NewsFragment : Fragment() {
                     hideProgressBar()
                     response.data?.let {
                         newsAdapter.differ.submitList(it.results?.toList() ?: emptyList())
-                        if (it.results!!.isEmpty()) {
+                        if (it.results?.isEmpty() == true) {
                             context?.let {
                                 buildMaterialDialog(
                                     requireContext(),

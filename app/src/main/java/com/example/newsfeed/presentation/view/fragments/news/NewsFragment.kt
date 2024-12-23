@@ -31,10 +31,6 @@ class NewsFragment : Fragment() {
     private lateinit var viewModel: NewsViewModel
     private lateinit var binding: FragmentNewsBinding
     private lateinit var newsAdapter: NewsAdapter
-
-    /*
-    News List arguments we are passing in.
-     */
     private var isLoading = false
 
     override fun onCreateView(

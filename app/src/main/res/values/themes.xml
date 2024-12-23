@@ -15,6 +15,6 @@
     </style>
 <!--    Used to set the text color of our SearchView.-->
     <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
-        <item name="android:textColorHint">@color/black</item>
+        <item name="android:textColorHint">@color/colorPrimary</item>
     </style>
 </resources>

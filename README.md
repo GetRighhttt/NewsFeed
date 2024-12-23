@@ -64,7 +64,7 @@ If you'd like to contribute to Project Title, here are some guidelines:
 - API(2 different functionalities.)
 - Coroutines
 - RoomDatabase
-- Remote and Local DataSources
+- Remote and Local data sources
 - Dagger-Hilt
 - MVVM
 - View Model
@@ -81,7 +81,8 @@ If you'd like to contribute to Project Title, here are some guidelines:
 - WebView
 <hr>
 
-https://github.com/GetRighhttt/NewsFeed/assets/105057858/287fb82c-b6e7-40db-a53f-b95b0f0548c2
+## Demo (Slow Speed Down)
+https://github.com/user-attachments/assets/ca9ee03b-8354-4e79-baed-fab3dde3e925
 
 ## **Contact**
 

@@ -41,11 +41,11 @@ class NewsViewModel @Inject constructor(
 
     To get the response, we need an instance of getNewsHeadLines from the UseCase.
      */
-    fun getNewsHeadLines(topic: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun getNewsHeadLines() = viewModelScope.launch(Dispatchers.IO) {
         newsHeadlines.postValue(Resource.Loading())
         try {
             if (isNetworkAvailable(app)) {
-                val apiResult = getNewsHeadlines.execute(topic)
+                val apiResult = getNewsHeadlines.execute()
                 newsHeadlines.postValue(apiResult)
             } else {
                 newsHeadlines.postValue(Resource.Error("Internet is not available."))

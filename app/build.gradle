@@ -8,12 +8,12 @@ plugins {
 }
 
 android {
-    compileSdk 33
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.example.newsfeed"
         minSdk 26
-        targetSdk 33
+        targetSdk 35
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -73,6 +73,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
 
     /* Room Database Dependencies */
     implementation("androidx.room:room-runtime:$roomVersion")

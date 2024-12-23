@@ -18,6 +18,10 @@ data class Results(
 
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
+    @SerializedName("article_id")
+    val articleId: String?,
+    @SerializedName("author")
+    val author: String?,
     @SerializedName("title")
     val title: String?,
     @SerializedName("link")

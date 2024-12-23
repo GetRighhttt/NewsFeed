@@ -24,7 +24,7 @@ interface NewsApiService {
         @Query("apikey")
         apikey: String = API_KEY,
         @Query("q")
-        q: String,
+        q: String = "news",
         @Query("country")
         countries: Array<String> = arrayOf("us"),
         @Query("language")

@@ -35,7 +35,6 @@ class NewsFragment : Fragment() {
     /*
     News List arguments we are passing in.
      */
-    private var topic: String = ""
     private var isLoading = false
 
     override fun onCreateView(
@@ -72,7 +71,7 @@ class NewsFragment : Fragment() {
     this method to load more pages.
      */
     private fun displayNewsList() {
-        viewModel.getNewsHeadLines(topic)
+        viewModel.getNewsHeadLines()
         viewModel.newsHeadlines.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {

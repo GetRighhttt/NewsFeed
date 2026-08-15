@@ -1,5 +1,6 @@
 package com.example.newsfeed.presentation.di
 
+import com.example.newsfeed.BuildConfig
 import com.example.newsfeed.data.api.NewsApiService
 import dagger.Module
 import dagger.Provides
@@ -25,31 +26,32 @@ installed in.
 @InstallIn(SingletonComponent::class)
 class NetModule {
 
-    /*
-    Get a retrofit instance.
-     */
     @Singleton
     @Provides
-    fun provideRetrofit(): Retrofit {
-
-        fun provideHttpInterceptor(): OkHttpClient {
-            val interceptor = HttpLoggingInterceptor().apply {
-                this.level = HttpLoggingInterceptor.Level.BODY
+    fun provideOkHttpClient(): OkHttpClient {
+        val loggingInterceptor = HttpLoggingInterceptor().apply {
+            level = if (BuildConfig.DEBUG) {
+                HttpLoggingInterceptor.Level.BODY
+            } else {
+                HttpLoggingInterceptor.Level.NONE
             }
-
-            val client = OkHttpClient.Builder().apply {
-                this.addInterceptor(interceptor)
-                    .connectTimeout(10, TimeUnit.SECONDS)
-                    .readTimeout(10, TimeUnit.SECONDS)
-                    .writeTimeout(10, TimeUnit.SECONDS)
-            }.build()
-            return client
         }
 
+        return OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(NewsApiService.BASE_URL)
-            .client(provideHttpInterceptor())
+            .client(okHttpClient)
             .build()
     }
 

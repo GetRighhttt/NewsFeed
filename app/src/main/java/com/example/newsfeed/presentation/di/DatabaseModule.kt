@@ -23,7 +23,7 @@ class DatabaseModule {
             app, ArticleRoomDatabase::class.java,
             "news_db"
         )
-            .fallbackToDestructiveMigration()
+            .fallbackToDestructiveMigration(dropAllTables = true)
             .build()
     }
 

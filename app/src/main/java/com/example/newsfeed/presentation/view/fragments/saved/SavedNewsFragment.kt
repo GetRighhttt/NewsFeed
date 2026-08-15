@@ -1,54 +1,48 @@
 package com.example.newsfeed.presentation.view.fragments.saved
 
-import android.content.ClipData
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsfeed.R
 import com.example.newsfeed.databinding.FragmentSavedNewsBinding
+import com.example.newsfeed.presentation.model.toArticleArgs
 import com.example.newsfeed.presentation.view.MainActivity
 import com.example.newsfeed.presentation.view.fragments.news.NewsAdapter
 import com.example.newsfeed.presentation.viewmodel.NewsViewModel
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.launch
 
 
 class SavedNewsFragment : Fragment() {
 
-    private lateinit var binding: FragmentSavedNewsBinding
+    private var _binding: FragmentSavedNewsBinding? = null
+    private val binding get() = checkNotNull(_binding)
     private lateinit var viewModel: NewsViewModel
-    private lateinit var savedAdapter: NewsAdapter
+    private val savedAdapter = NewsAdapter()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_saved_news, container, false)
+    ): View {
+        _binding = FragmentSavedNewsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentSavedNewsBinding.bind(view)
-
-        viewModel = (activity as MainActivity).viewModel
-        savedAdapter = (activity as MainActivity).newsAdapter
+        viewModel = (requireActivity() as MainActivity).viewModel
         savedAdapter.setOnItemClickListener {
-            val bundle = Bundle().apply {
-                putSerializable("selected_article", it)
-            }
             findNavController().navigate(
-                R.id.action_savedNewsFragment_to_detailsFragment,
-                bundle
+                SavedNewsFragmentDirections.actionSavedNewsFragmentToDetailsFragment(
+                    it.toArticleArgs()
+                )
             )
         }
         initRecyclerView() // method to initialize recycler view
@@ -60,10 +54,9 @@ class SavedNewsFragment : Fragment() {
   Method to initialize recycler view with apply method.
    */
     private fun initRecyclerView() {
-        // Injecting as singleton -> savedAdapter = NewsAdapter()
         binding.rvSavedNews.apply {
             adapter = savedAdapter
-            layoutManager = LinearLayoutManager(activity)
+            layoutManager = LinearLayoutManager(requireContext())
         }
     }
 
@@ -71,9 +64,9 @@ class SavedNewsFragment : Fragment() {
     Method to observe live data from view model and submit the list.
      */
     private fun observeLiveData() {
-        viewModel.getSavedNews().observe(viewLifecycleOwner, Observer {
+        viewModel.savedNews.observe(viewLifecycleOwner) {
             savedAdapter.differ.submitList(it)
-        })
+        }
     }
 
     private fun createItemCallBack() {
@@ -85,7 +78,7 @@ class SavedNewsFragment : Fragment() {
         This below is how we allow for swipe interactions.
          */
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
-            ItemTouchHelper.UP or ItemTouchHelper.DOWN,
+            0,
             ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
         ) {
             override fun onMove(
@@ -93,7 +86,7 @@ class SavedNewsFragment : Fragment() {
                 viewHolder: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder
             ): Boolean {
-                return true
+                return false
             }
 
             /*
@@ -106,22 +99,21 @@ class SavedNewsFragment : Fragment() {
             deletion.
              */
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val position = viewHolder.adapterPosition
+                val position = viewHolder.bindingAdapterPosition
+                if (position == RecyclerView.NO_POSITION) return
                 val article = savedAdapter.differ.currentList[position]
-                lifecycleScope.launch {
-                    viewModel.deleteSavedNewsArticle(article)
-                }
-                view?.let {
-                    Snackbar.make(it, "Article Deleted", Snackbar.LENGTH_LONG)
-                        .apply {
-                            setAction("Undo") {
-                                lifecycleScope.launch {
-                                    viewModel.saveArticle(article)
-                                }
-                            }
+                viewModel.deleteSavedNewsArticle(article)
+                Snackbar.make(
+                    binding.root,
+                    R.string.article_deleted,
+                    Snackbar.LENGTH_LONG
+                )
+                    .apply {
+                        setAction(R.string.undo) {
+                            viewModel.saveArticle(article)
                         }
-                        .show()
-                }
+                    }
+                    .show()
             }
 
         }
@@ -130,5 +122,12 @@ class SavedNewsFragment : Fragment() {
         ItemTouchHelper(itemTouchHelperCallback).apply {
             attachToRecyclerView(binding.rvSavedNews)
         }
+    }
+
+    override fun onDestroyView() {
+        binding.rvSavedNews.adapter = null
+        savedAdapter.setOnItemClickListener(null)
+        _binding = null
+        super.onDestroyView()
     }
 }

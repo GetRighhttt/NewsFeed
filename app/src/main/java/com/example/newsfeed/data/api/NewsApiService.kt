@@ -1,5 +1,6 @@
 package com.example.newsfeed.data.api
 
+import com.example.newsfeed.BuildConfig
 import com.example.newsfeed.data.model.NewsResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -11,7 +12,6 @@ Service to get the endpoints from our base url
 interface NewsApiService {
 
     companion object {
-        const val API_KEY = "pub_225267ae16ee0419ec31a02756dca11d12937"
         const val BASE_URL = "https://newsdata.io/"
     }
 
@@ -22,7 +22,7 @@ interface NewsApiService {
     @GET("api/1/news")
     suspend fun getTopHeadlines(
         @Query("apikey")
-        apikey: String = API_KEY,
+        apiKey: String = BuildConfig.NEWS_DATA_API_KEY,
         @Query("q")
         q: String = "news",
         @Query("country")
@@ -39,7 +39,7 @@ interface NewsApiService {
         @Query("q")
         q: String,
         @Query("apikey")
-        apikey: String = API_KEY,
+        apiKey: String = BuildConfig.NEWS_DATA_API_KEY,
         @Query("country")
         countries: Array<String> = arrayOf("US"),
         @Query("language")

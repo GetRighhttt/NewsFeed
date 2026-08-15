@@ -2,7 +2,6 @@ package com.example.newsfeed.presentation.view.fragments.news
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -29,9 +28,11 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
     private val callback = object : DiffUtil.ItemCallback<Results>() {
         /*
         Decides if two objects are the same.
-         */
+        */
         override fun areItemsTheSame(oldItem: Results, newItem: Results): Boolean {
-           return oldItem.link!! == newItem.link!!
+            val oldKey = oldItem.articleId ?: oldItem.link
+            val newKey = newItem.articleId ?: newItem.link
+            return oldKey != null && oldKey == newKey
         }
 
         /*
@@ -57,17 +58,27 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
          */
         fun bind(results: Results) {
             binding.apply {
-                tvTitle.text = results.title
-                tvDescription.text = results.description
-                tvPublishedAt.text = results.pubDate
+                val title = results.title?.takeIf { it.isNotBlank() }
+                    ?: root.context.getString(R.string.untitled_article)
+                tvTitle.text = title
+                tvDescription.text = results.description?.takeIf { it.isNotBlank() }
+                    ?: root.context.getString(R.string.description_unavailable)
+                tvPublishedAt.text = results.pubDate?.takeIf { it.isNotBlank() }
+                    ?: root.context.getString(R.string.date_unavailable)
+                ivArticleImage.contentDescription = root.context.getString(
+                    R.string.article_image_description,
+                    title
+                )
                 /*
                 Get the image with glide.
                  */
                 Glide.with(ivArticleImage.context)
                     .load(results.image_url)
                     .transition(DrawableTransitionOptions().crossFade(1000))
-                    .fitCenter()
+                    .centerCrop()
                     .placeholder(R.drawable.icons8_placeholder_64)
+                    .fallback(R.drawable.icons8_placeholder_64)
+                    .error(R.drawable.icons8_placeholder_64)
                     .into(ivArticleImage)
 
                 root.setOnClickListener{
@@ -77,10 +88,6 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
                 }
             }
         }
-        /*
-        Bind linear list item for animation.
-         */
-        val linearListItem = binding.linearListItem
     }
 
     /*
@@ -110,9 +117,6 @@ Item click listener variable.
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val article = differ.currentList[position]
         holder.bind(article)
-        holder.linearListItem.startAnimation(
-            AnimationUtils.loadAnimation(holder.itemView.context, R.anim.favorite_anim)
-        )
     }
 
     /*

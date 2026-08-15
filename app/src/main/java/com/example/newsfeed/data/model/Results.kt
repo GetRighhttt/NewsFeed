@@ -1,10 +1,8 @@
 package com.example.newsfeed.data.model
 
-
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-import java.io.Serializable
 
 /**
  * This is the only class we will need to use ROOM database for as we
@@ -32,4 +30,4 @@ data class Results(
     val pubDate: String?,
     @SerializedName("image_url")
     val image_url: String?
-) : Serializable
+)

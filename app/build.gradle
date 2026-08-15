@@ -1,101 +1,94 @@
 plugins {
     id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt' // annotation processing
-    id 'kotlin-parcelize' // parsing data easily
-    id 'androidx.navigation.safeargs' // navigation
-    id("dagger.hilt.android.plugin") // parsing data easily
+    id 'com.google.devtools.ksp'
+    id 'androidx.navigation.safeargs'
+    id 'com.google.dagger.hilt.android'
 }
 
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withInputStream { localProperties.load(it) }
+}
+def newsDataApiKey = localProperties.getProperty('NEWS_DATA_API_KEY') ?:
+        System.getenv('NEWS_DATA_API_KEY') ?: ''
+def escapedNewsDataApiKey = newsDataApiKey
+        .replace('\\', '\\\\')
+        .replace('"', '\\"')
+
 android {
-    compileSdk 35
+    compileSdk = 37
 
     defaultConfig {
-        applicationId "com.example.newsfeed"
-        minSdk 26
-        targetSdk 35
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        applicationId = "com.example.newsfeed"
+        minSdk = 26
+        targetSdk = 37
+        versionCode = 1
+        versionName = "1.0"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField 'String', 'NEWS_DATA_API_KEY', "\"${escapedNewsDataApiKey}\""
     }
 
     buildTypes {
         release {
             // enabling proguard
-            minifyEnabled true // enables proguard (true)
-            shrinkResources true // reduce APK size (true)
+            minifyEnabled = true
+            shrinkResources = true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = '17'
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     buildFeatures {
-        viewBinding true
+        buildConfig = true
+        viewBinding = true
     }
-    namespace 'com.example.newsfeed'
+    namespace = 'com.example.newsfeed'
 }
 
 dependencies {
 
     // Declaring versions for implementation
-    ext.roomVersion = '2.5.1'
-    ext.lifecycle_version = '2.6.1'
-    ext.arch_version = "2.1.0"
-    ext.dagger_version = "2.42"
-    def arch_version = '2.2.0'
-    def nav_version = "2.5.3"
+    def room_version = '2.8.4'
+    def lifecycle_version = '2.11.0'
+    def nav_version = '2.9.8'
+    def activity_version = '1.13.0'
 
     /* Dependency injection dependencies - Hilt.*/
-    implementation('com.google.dagger:hilt-android:2.46.1')
-    kapt('com.google.dagger:hilt-android-compiler:2.46.1')
+    implementation 'com.google.dagger:hilt-android:2.60.1'
+    ksp 'com.google.dagger:hilt-android-compiler:2.60.1'
 
     /* Navigation Safe Args */
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+    implementation("androidx.activity:activity-ktx:$activity_version")
 
     /* Network dependencies. */
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.2'
-    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.6'
-    implementation 'com.github.bumptech.glide:glide:4.15.1'
-    kapt 'com.github.bumptech.glide:compiler:4.15.1'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1'
+    implementation 'com.squareup.retrofit2:retrofit:3.0.0'
+    implementation 'com.squareup.retrofit2:converter-gson:3.0.0'
+    implementation 'com.squareup.okhttp3:okhttp:5.4.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:5.4.0'
+    implementation 'com.github.bumptech.glide:glide:5.0.9'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0'
 
     /* ViewModel and LiveData dependencies. */
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version")
 
     /* Room Database Dependencies */
-    implementation("androidx.room:room-runtime:$roomVersion")
-    kapt('androidx.room:room-compiler:2.6.0-alpha01')
-    implementation("androidx.room:room-ktx:$roomVersion")
+    implementation("androidx.room:room-runtime:$room_version")
+    ksp("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
 
     /* Core dependencies & testing */
-    implementation 'androidx.core:core-ktx:1.10.1'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.9.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.core:core-ktx:1.19.0'
+    implementation 'androidx.appcompat:appcompat:1.8.0'
+    implementation 'com.google.android.material:material:1.14.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.2'
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    testImplementation 'com.google.truth:truth:1.1.4'
-    testImplementation "androidx.arch.core:core-testing:$arch_version"
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    implementation 'com.squareup.okhttp3:mockwebserver:5.0.0-alpha.2'
-}
-
-/*
-Allow references to generated code.
- */
-kapt {
-    correctErrorTypes = true
+    androidTestImplementation 'androidx.test.ext:junit:1.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.7.0'
 }

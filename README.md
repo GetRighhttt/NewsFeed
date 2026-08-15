@@ -1,89 +1,121 @@
-## **NewsFeed**
+# NewsFeed
 
-## **Introduction**
-<p>This app is a clean code architected app.<br>
-It provides the top News headlines with a search functionality.<br>
-When an article is clicked, a user is routed to a webview of that article<br>
-that is read in straight from an API. A floating action button allows the user<br>
-to save the article to a local database(ROOM). A tab layout is used to swtich between<br>
-the current articles saved, and the latest articles listed. Users can swipe to delete<br>
-a saved article in the recycler view, and also undo that action by pressing "Undo" on<br>
-the Snackbar that displays.
+NewsFeed is a native Android application for browsing, searching, reading, and saving current news articles. It retrieves headlines from [NewsData.io](https://newsdata.io/), opens articles in an in-app WebView, and stores saved articles locally for later access.
 
+The project uses a single-activity architecture with MVVM, use cases, repository abstractions, Hilt dependency injection, and separate remote and local data sources.
 
-## **Installation**
+## Features
 
-To install Project Title, follow these steps:
+- Browse current US news headlines
+- Search for articles by topic
+- Read articles without leaving the app
+- Save articles locally with Room
+- Browse a locally persisted saved-article list
+- Swipe to delete saved articles
+- Undo accidental deletions
+- Edge-to-edge layout support
+- Lifecycle-aware UI and network state handling
 
- 
-1. Have Android Studio downloaded.
-2. Clone the repository into Android Studio: **`git clone: git@github.com:GetRighhttt/NewsFeed.git`**
+## Demo
 
-## **Usage**
-
-To use Project Title, follow these steps:
-
-1. Open the project in Android Studio.
-
-2. Modify the source code to fit your needs.
-
-3. Build the project.
-
-4. Start the project.
-
-5. Use the project as desired.
-
-## **Contributing**
-
-If you'd like to contribute to Project Title, here are some guidelines:
- 
-
-1. Fork the repository.
-
-2. Create a new branch for your changes.
-
-3. Make your changes.
-
-4. Write tests to cover your changes.
-
-5. Run the tests to ensure they pass.
-
-6. Commit your changes.
-
-7. Push your changes to your forked repository.
-
-8. Submit a pull request.
-
-## **Demo**
-#### Here is a list of all the features used in this application:
-
-- Clean Code Architecture Package Structure
-- SOLID principle
-- DRY principle
-- Retrofit2
-- API(2 different functionalities.)
-- Coroutines
-- RoomDatabase
-- Remote and Local data sources
-- Dagger-Hilt
-- MVVM
-- View Model
-- Live Data
-- Navigation - SafeArgs
-- Glide
-- Swipe to delete
-- WebView
-- SearchView
-- Recycler View
-- Recycler View Animations
-- View Binding
-- Bottom Navigation
-- WebView
-<hr>
-
-## Demo (Slow Speed Down)
 https://github.com/user-attachments/assets/ca9ee03b-8354-4e79-baed-fab3dde3e925
 
-## **Contact**
+## Tech stack
 
-If you have any questions or comments about Project Title, please contact **stefanbusiness95@gmail.com**.
+| Area | Technology |
+| --- | --- |
+| Language | Kotlin |
+| UI | Android Views, Material Components, View Binding |
+| Architecture | MVVM, use cases, repository pattern |
+| Dependency injection | Dagger Hilt |
+| Networking | Retrofit, OkHttp, Gson |
+| Image loading | Glide |
+| Local storage | Room |
+| Asynchronous work | Kotlin Coroutines and Flow |
+| State | ViewModel and LiveData |
+| Navigation | AndroidX Navigation and Safe Args |
+| Build tooling | Gradle 9, AGP 9, KSP |
+
+## Architecture
+
+| Layer | Responsibility |
+| --- | --- |
+| `presentation` | Activities, fragments, adapters, navigation models, ViewModels, and dependency-injection modules |
+| `domain` | Repository contracts and application use cases |
+| `data` | API models, Room database access, data sources, and repository implementations |
+
+Data flows from the presentation layer through domain use cases and repository contracts. Repository implementations select the NewsData.io API or Room database as the appropriate source.
+
+## Requirements
+
+- Android Studio with JDK 17 support
+- Android SDK 37
+- A [NewsData.io API key](https://newsdata.io/register)
+- Android 8.0 (API 26) or newer for running the app
+
+## Getting started
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/GetRighhttt/NewsFeed.git
+   cd NewsFeed
+   ```
+
+2. Add your NewsData.io key to the untracked `local.properties` file:
+
+   ```properties
+   NEWS_DATA_API_KEY=your_newsdata_api_key
+   ```
+
+   Android Studio normally creates this file with your local SDK path. Keep that existing value and add the API-key entry on a new line. As an alternative, provide `NEWS_DATA_API_KEY` as an environment variable.
+
+3. Open the project in Android Studio and sync Gradle.
+
+4. Run the `app` configuration on an emulator or physical device.
+
+> [!IMPORTANT]
+> Never commit `local.properties` or a real API key. If a key is exposed, revoke it and generate a replacement through NewsData.io.
+
+## Build and verification
+
+Run the following commands from the repository root:
+
+```bash
+# Compile and package the debug APK
+./gradlew assembleDebug
+
+# Run local unit tests
+./gradlew test
+
+# Run Android lint
+./gradlew lintDebug
+
+# Build the minified, unsigned release APK
+./gradlew assembleRelease
+```
+
+Generated APKs are written under `app/build/outputs/apk/`.
+
+## Project structure
+
+```text
+app/src/main/java/com/example/newsfeed/
+├── data/           # API, database, models, and repository implementations
+├── domain/         # Repository contracts and use cases
+├── presentation/   # Application, DI, UI, navigation models, and ViewModel
+└── util/           # Shared platform utilities
+```
+
+## Contributing
+
+Contributions are welcome. Before opening a pull request:
+
+1. Create a focused branch for the change.
+2. Add or update tests where appropriate.
+3. Run `./gradlew test lintDebug assembleDebug`.
+4. Describe the behavior change and verification performed in the pull request.
+
+## Contact
+
+Questions and feedback can be sent to [stefanbusiness95@gmail.com](mailto:stefanbusiness95@gmail.com).

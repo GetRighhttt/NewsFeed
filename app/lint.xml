@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lint>
+    <!-- Glide includes this optional target, but NewsFeed only uses ImageView targets. -->
+    <issue id="NotificationPermission">
+        <ignore regexp="usage from com\.bumptech\.glide\.request\.target\.NotificationTarget" />
+    </issue>
+</lint>

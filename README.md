@@ -16,9 +16,15 @@ The project uses a single-activity architecture with MVVM, use cases, repository
 - Edge-to-edge layout support
 - Lifecycle-aware UI and network state handling
 
-## Demo
+## Screenshots
 
-https://github.com/user-attachments/assets/ca9ee03b-8354-4e79-baed-fab3dde3e925
+The current UI uses an editorial layout with a warm accent color, elevated article cards, edge-to-edge spacing, and a focused saved-news experience.
+
+| Headlines | Saved news |
+| --- | --- |
+| ![NewsFeed headlines screen](docs/screenshots/newsfeed-home.png) | ![NewsFeed saved news screen](docs/screenshots/newsfeed-saved.png) |
+
+The app also includes in-app article reading, search, swipe-to-delete saved articles, and undo support.
 
 ## Tech stack
 

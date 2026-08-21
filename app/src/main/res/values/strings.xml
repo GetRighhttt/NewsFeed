@@ -19,4 +19,8 @@
     <string name="date_unavailable">Date unavailable</string>
     <string name="article_image">Article image</string>
     <string name="article_image_description">Image for %1$s</string>
+    <string name="top_stories">Top stories</string>
+    <string name="top_stories_subtitle">Stay informed. Stay curious.</string>
+    <string name="saved_stories">Saved stories</string>
+    <string name="saved_stories_subtitle">Your reading list, all in one place.</string>
 </resources>

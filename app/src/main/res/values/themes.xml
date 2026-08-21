@@ -1,18 +1,23 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:targetApi="27">
     <!-- Base application theme. -->
     <style name="Theme.NewsFeed" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/noonday</item>
         <item name="colorSecondaryVariant">@color/midnight</item>
         <item name="colorOnSecondary">@color/midnight</item>
-        <!-- Customize your theme here. -->
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/textPrimary</item>
+        <item name="android:colorBackground">@color/background</item>
+        <item name="android:statusBarColor">@color/background</item>
+        <item name="android:navigationBarColor">@color/background</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="colorControlHighlight">#26E76F51</item>
     </style>
 <!--    Used to set the text color of our SearchView.-->
     <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
-        <item name="android:textColorHint">@color/colorPrimary</item>
+        <item name="android:textColorHint">@color/textSecondary</item>
     </style>
 </resources>

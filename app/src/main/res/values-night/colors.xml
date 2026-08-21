@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background">#FF12171D</color>
+    <color name="surface">#FF1C242C</color>
+    <color name="surfaceVariant">#FF29333D</color>
+    <color name="textPrimary">#FFF3F1ED</color>
+    <color name="textSecondary">#FFB6BEC5</color>
+    <color name="midnight">#FFF3F1ED</color>
+    <color name="noonday">#FFB6BEC5</color>
+    <color name="colorPrimary">#FFFF9A7D</color>
+    <color name="purple_200">#FFFFB4A2</color>
+    <color name="purple_500">#FFFF9A7D</color>
+    <color name="purple_700">#FFE76F51</color>
+    <color name="teal_200">#FF9CC4C4</color>
+</resources>

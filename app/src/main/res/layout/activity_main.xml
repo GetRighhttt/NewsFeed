@@ -22,8 +22,11 @@
         android:id="@+id/bottom_nav_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:background="@drawable/gradient_background"
+        android:background="@color/surface"
+        android:elevation="8dp"
+        app:itemIconTint="@color/bottom_navigation_colors"
+        app:itemTextColor="@color/bottom_navigation_colors"
+        app:labelVisibilityMode="labeled"
         app:menu="@menu/menu" />
 
 </LinearLayout>

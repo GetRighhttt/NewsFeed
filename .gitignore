@@ -1,6 +1,7 @@
 *.iml
 .gradle
 /.kotlin/
+/kls_database.db
 /local.properties
 /.idea/caches
 /.idea/libraries

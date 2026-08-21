@@ -25,12 +25,40 @@
         android:textColor="@color/textSecondary"
         android:textSize="14sp" />
 
+    <LinearLayout
+        android:id="@+id/emptySavedState"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="32dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_saved_title"
+            android:textColor="@color/textPrimary"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/empty_saved_message"
+            android:textColor="@color/textSecondary"
+            android:textSize="14sp" />
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_saved_news"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="12dp"
         android:layout_weight="1"
+        android:visibility="gone"
         android:clipToPadding="false"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"

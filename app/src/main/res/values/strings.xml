@@ -23,4 +23,7 @@
     <string name="top_stories_subtitle">Stay informed. Stay curious.</string>
     <string name="saved_stories">Saved stories</string>
     <string name="saved_stories_subtitle">Your reading list, all in one place.</string>
+    <string name="article_toolbar_title">Article</string>
+    <string name="empty_saved_title">Your reading list is empty</string>
+    <string name="empty_saved_message">Save an article from the headlines and it will appear here.</string>
 </resources>

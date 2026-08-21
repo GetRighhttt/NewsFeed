@@ -74,7 +74,7 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
                  */
                 Glide.with(ivArticleImage.context)
                     .load(results.image_url)
-                    .transition(DrawableTransitionOptions().crossFade(1000))
+                    .transition(DrawableTransitionOptions().crossFade(150))
                     .centerCrop()
                     .placeholder(R.drawable.icons8_placeholder_64)
                     .fallback(R.drawable.icons8_placeholder_64)

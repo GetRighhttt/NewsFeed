@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.fragment.findNavController
 import com.example.newsfeed.R
 import com.example.newsfeed.databinding.FragmentDetailsBinding
 import com.example.newsfeed.presentation.model.toResults
@@ -52,6 +53,10 @@ class DetailsFragment : Fragment() {
          */
         viewModel = (requireActivity() as MainActivity).viewModel
         binding.apply {
+            articleToolbar.title = getString(R.string.article_toolbar_title)
+            articleToolbar.setNavigationOnClickListener {
+                findNavController().navigateUp()
+            }
             floatingActionButton.setOnClickListener {
                 viewModel.saveArticle(article.toResults())
                 Snackbar.make(

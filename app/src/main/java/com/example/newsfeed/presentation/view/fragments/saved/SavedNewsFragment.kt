@@ -66,6 +66,8 @@ class SavedNewsFragment : Fragment() {
     private fun observeLiveData() {
         viewModel.savedNews.observe(viewLifecycleOwner) {
             savedAdapter.differ.submitList(it)
+            binding.emptySavedState.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
+            binding.rvSavedNews.visibility = if (it.isEmpty()) View.GONE else View.VISIBLE
         }
     }
 

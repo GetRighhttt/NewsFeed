@@ -20,9 +20,9 @@ The project uses a single-activity architecture with MVVM, use cases, repository
 
 The current UI uses an editorial layout with a warm accent color, elevated article cards, edge-to-edge spacing, and a focused saved-news experience.
 
-| Headlines | Saved news |
-| --- | --- |
-| ![NewsFeed headlines screen](docs/screenshots/newsfeed-home.png) | ![NewsFeed saved news screen](docs/screenshots/newsfeed-saved.png) |
+| Headlines | Saved news | Article reader |
+| --- | --- | --- |
+| ![NewsFeed headlines screen](docs/screenshots/newsfeed-home.png) | ![NewsFeed saved news screen](docs/screenshots/newsfeed-saved.png) | ![NewsFeed article reader screen](docs/screenshots/newsfeed-webview.png) |
 
 The app also includes in-app article reading, search, swipe-to-delete saved articles, and undo support.
 
